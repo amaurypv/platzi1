@@ -1,0 +1,279 @@
+/*
+para seleccionar por id del documento html  se usa # y el nombre del id 
+*/
+
+/* aqui se van a pegar las fuentes que se pueden copiar desde fonts google en donde dice import*/
+/* y en donde se quiera usar se va a poner */ 
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Danfo&family=Unbounded:wght@200;300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Danfo&family=Spicy+Rice&family=Unbounded:wght@200;300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Danfo&family=Luckiest+Guy&family=Spicy+Rice&family=Unbounded:wght@200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Danfo&family=Luckiest+Guy&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Spicy+Rice&family=Unbounded:wght@200..900&display=swap');
+body{
+    /*se pega esta parta para usar el tipo de letra que se selecciono en font google*/
+    font-family: "Luckiest Guy", cursive;
+    background-color:#FE7A36;
+    
+}
+
+#seleccion_mascota{
+    /*
+    display: flex; 
+    Al utilizar display: flex;, puedes controlar cómo se distribuyen los
+    elementos secundarios dentro del contenedor flexible utilizando propiedades como
+    justify-content, align-items, flex-direction.
+    https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+    */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.titulos{
+    font-family: "Danfo", serif;    
+    color: #3652AD;
+    font-size: 60px;
+    margin-bottom: 5px;
+    margin-bottom: 42px;
+
+}
+
+.subtitulos{
+    color: whitesmoke;
+    font-size: 32px;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.mascotas{
+    display: flex;
+}
+
+/* para poner clases y ponerlo en todos las clases de los elementos que queremos sean iguales
+se usa un punto (.)y el nombre de la clase en html se va a poner class='clase'*/
+
+/*para poner colores hay una pagina que nos puede ayudar
+https://colorhunt.co/   */
+
+/* para poder de manera directa ver los cambios es con f12 en la pagina, seleccionamos el elemento 
+con el que vamos a trabajar y hacemos los cambios necesario
+una vez hechos los cambios lo copiamos y se pegan en el archivo css ya que no se cambian de forma 
+automatica desde el explorador */
+.tarjeta_mokepon {
+    display: flex;
+    box-sizing: border-box;
+    background: rgb(40, 2, 116);
+    width: 200px;
+    height: 100px;
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid black;
+    border-radius: 20px;
+    color: whitesmoke;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+/* para seleccionar un elemento que se encuentra dentro de una clase */
+.tarjeta_mokepon img{
+    height: 80px;
+}
+.seleccioninput{
+    padding: 20px;
+    border: solid red 10px;
+    width: 20px;
+    height: 20px;
+    display: none;
+}
+
+/*para que una seleccion se vea activa pero sin el input si no sobre el label 
+y que este cambie de caracteristicas se usa como con los botenes pero en este caso 
+se usa checked y se usa el signo de + para que el que tenga efecto sea su hermano
+es decir el label que es el que esta linkeado a ese input */
+.seleccioninput:checked + label{
+    background-color: #FFC55A;
+    
+}
+
+#boton_mascota{
+    height: 45px;
+    width: 185px;
+    border-radius: 20px;
+    border: 2px solid white;
+    background: transparent;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: whitesmoke;
+    margin: 20px;
+}
+
+#seleccion_ataque{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+#botones_ataque{
+    display: flex;
+    justify-content: center;
+}
+
+
+.boton_ataque{
+    display: flex;
+    height: 45px;
+    width: 185px;
+    border-radius: 20px;
+    border: 2px solid white;
+    background: #280274;
+    font-family: "Luckiest Guy", cursive;
+    color: whitesmoke;
+    margin: 20px;
+    font-size: 30px;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.sub_enemigo{
+    display: flex;
+    justify-content: center;
+}
+
+#enemigo{
+    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center
+}
+
+.boton_enemigo{
+    display: flex;
+    justify-content: center;
+}
+
+.boton_enemigo button{
+    height: 45px;
+    width: 185px;
+    border-radius: 20px;
+    border: 2px solid white;
+    background: transparent;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: whitesmoke;
+    margin: 20px;
+}
+
+#ataque_enemigo div{
+    display: flex;
+    justify-content: center;
+}
+
+#ataque_enemigo button{
+    background-color: #00e5e5; /* Color de fondo del botón */
+            color: #000; /* Color del texto */
+            padding: 15px 30px; /* Espaciado interno */
+            font-size: 18px; /* Tamaño de la fuente */
+            font-weight: bold; /* Peso de la fuente */
+            border: none; /* Sin borde */
+            border-radius: 10px; /* Bordes redondeados */
+            cursor: pointer; /* Cursor de mano al pasar sobre el botón */
+            box-shadow: 0 0 20px rgba(0, 229, 229, 0.8); /* Sombra de resplandor inicial */
+            transition: box-shadow 0.3s ease; /* Transición suave para el cambio de sombra */
+}
+
+#ataque_enemigo button:hover{
+    box-shadow: 0 0 40px rgba(0, 229, 229, 1); /* Sombra de resplandor al pasar el ratón */
+}
+#ataque_enemigo button:active{
+    background-color: #1e7e34; /* Color de fondo al hacer clic */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra menos intensa */
+    transform: translateY(0); /* Restablecer elevación */
+}
+
+#caja_mensaje{
+    display: flex;
+    justify-content: center;
+}
+
+#reiniciar{
+    display: flex;
+    justify-content: center;
+}
+#mensaje_ganador{
+    display: flex;
+    justify-content: center;
+}
+
+#mensaje_ataque{
+    display: none;
+}
+
+#nombre_jugador1{
+    display: none;    
+
+}
+#nombre_contrincante{
+    display: none;
+
+}
+#jugador1{
+    background-color: whitesmoke;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 100px;
+}
+
+#contrincante{
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 100px;
+}
+#mis_vidas{
+    font-size: 80px;
+}
+#vidas_enemigo{
+    font-size: 80px
+}
+#boton_reiniciar{
+    background-color: rgb(0, 229, 229);
+    color: rgb(0, 0, 0);
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: rgba(0, 229, 229, 0.8) 0px 0px 20px;
+    transition: box-shadow 0.3s ease 0s;
+}
+
+/* si queremos que la ubicacion de los elementos se mueva dependiendo del tamaño 
+de pantallas se usa @media con ella vamos a poner el limite maximo con el que 
+queremos que se hagan las modificaciones de los elementos*/
+@media (max-width:360px) /*se pone 360 px porque es el tamaño promedio de las pantallas de los cel*/
+{
+   /*dentro se va a poner los elementos que queremos que se modifiquen ya sea por clase o por id*/
+   .mascotas{
+    flex-direction: column; /*como ya se tenia que display flex, lo que queremos es que se 
+                            se pongan en forma de columna para que aparezca en toda la pantalla*/
+   }
+   #botones_ataque{
+    flex-direction: column;
+   }
+
+}
