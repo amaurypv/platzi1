@@ -106,6 +106,10 @@ ratiguya.ataques.push(
 let mokepones=[]
 mokepones.push(hipodoge,capipepo,ratiguya,langostelvis,tucapalma,pydos)
 
+mokepones.forEach(mokepon=>{
+    console.log(mokepon.nombre)
+})
+
 //se define una variable global llamada ataque jugador que va a cambiar su valor dependiendo del boton de ataque que se presione
 const iniciarJuego=()=>{
     //para darle la accion al boton de mascota cuando haga click y que debe de hacer
