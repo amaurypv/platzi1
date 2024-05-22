@@ -19,13 +19,6 @@ const seccionAtaqueEnemigo=document.getElementById('ataque_enemigo')
 const seccionSelccionMascota=document.getElementById('seleccion_mascota')
 //para seleccionar los elementos que se guardaron en el html por nombre de 
 //id  se usa document.getElementById('el ida que se puso')  
-const inputHipodoge=document.getElementById('hipodoge')
-const inputCapipepo=document.getElementById('capipepo')
-const inputRatiguya=document.getElementById('ratiguya')
-const inputLangostelvis=document.getElementById('langostelvis')
-const inputTucapalma=document.getElementById('tucapalma')
-const inputPydos=document.getElementById('pydos')
-
 //se define una variable que va a ser la que queremos que se ponga 
 //en un span cuando se haga click con el boton
 const nombre_mascota=document.getElementById('mascota_jugador')
@@ -45,6 +38,16 @@ const divJugador1=document.getElementById('jugador1')
 
 const seccionMensajeganador=document.getElementById('mensaje_ganador')
 
+/*para poder agregar de forma sistematica primero se crea un constructor de clases como el que se
+se genero mas abajo, luego se van agregando los mokepones de forma manual de acuerdo a las caracteristicas
+que se tiene en las tarjetas mismas que nos van a servir para agregarlas de forma sistematica
+posteriormente se va a borrar en el archivo html la seccion de seleccion de mascotas
+porlo que primero se define la division existente que tenia la clase mascotas con un nuevo id 
+llamado div_seleccion_mascota y se define una nueva variable que es la va que a contener las 
+caracteristicas tal y como se pusieron en hmtl */ 
+const divSeleccionMascota=document.getElementById('div_seleccion_mascota')
+let nuevoMokepon
+
 let ataqueJugador
 let ataqueAzarEnemigo
 let jugada
@@ -52,6 +55,16 @@ let misVidas=3
 let vidasEnemigo=3
 
 let mascotaEnemigo=document.getElementById('mascota_enemigo')
+
+//como no reconoce las variables del input porque originalmente no estan en el html 
+//se van a definir como let ya que se va a cambiar el valor  en la funcion for each
+let inputHipodoge=document.getElementById('hipodoge')
+let inputCapipepo=document.getElementById('capipepo')
+let inputRatiguya=document.getElementById('ratiguya')
+let inputLangostelvis=document.getElementById('langostelvis')
+let inputTucapalma=document.getElementById('tucapalma')
+let inputPydos=document.getElementById('pydos')
+
 
 //se va a generar una clase llamada Mokepon que nos genere mokepones que debe de contener
 //nombre, imagen del mokepon que se toma desde el html y vidas
@@ -67,14 +80,14 @@ class Mokepon{
 
 //ya que generamos la clase ahora vamos a generar un objeto con el nombre de cada uno de los 
 //mokepones que tenemos en html 
-let hipodoge=new Mokepon('Hipodoge', './assets/mokepons_mokepon_hipodoge_attack.webp',5)
+let hipodoge=new Mokepon('hipodoge', './assets/mokepons_mokepon_hipodoge_attack.webp',5)
 //para comprobar si se guardo de forma correcta se puede enviar un console.log
 //console.log(hipodoge)
-let capipepo=new Mokepon('Capipepo', './assets/mokepons_mokepon_capipepo_attack.webp',5)
-let ratiguya=new Mokepon('Ratiguya', './assets/mokepons_mokepon_ratigueya_attack.webp', 5)
-let langostelvis=new Mokepon('Langostelvis', './assets/Corphish-Pokemon-PNG.png', 5)
-let tucapalma=new Mokepon('Tucapalma', './assets/y3s277X.png',5)
-let pydos=new Mokepon('Pydos', './assets/Artwork_Charizard_UNITE.png', 5)
+let capipepo=new Mokepon('capipepo', './assets/mokepons_mokepon_capipepo_attack.webp',5)
+let ratiguya=new Mokepon('ratiguya', './assets/mokepons_mokepon_ratigueya_attack.webp', 5)
+let langostelvis=new Mokepon('langostelvis', './assets/Corphish-Pokemon-PNG.png', 5)
+let tucapalma=new Mokepon('tucapalma', './assets/y3s277X.png',5)
+let pydos=new Mokepon('pydos', './assets/Artwork_Charizard_UNITE.png', 5)
 
 //se va a agregar de manera manual los ataques a cada uno de los mokepones
 //hipodoge es de agua por eso debe de tener 3 ataques de agua
@@ -106,10 +119,6 @@ ratiguya.ataques.push(
 let mokepones=[]
 mokepones.push(hipodoge,capipepo,ratiguya,langostelvis,tucapalma,pydos)
 
-mokepones.forEach(mokepon=>{
-    console.log(mokepon.nombre)
-})
-
 //se define una variable global llamada ataque jugador que va a cambiar su valor dependiendo del boton de ataque que se presione
 const iniciarJuego=()=>{
     //para darle la accion al boton de mascota cuando haga click y que debe de hacer
@@ -129,6 +138,25 @@ const iniciarJuego=()=>{
     seccionMensajes.style.display='none'    
     seccionReiniciar.style.display='none'    
     seccionAtaqueEnemigo.style.display='none'
+
+    mokepones.forEach((mokepon)=>{
+        nuevoMokepon=
+        `<input  class="seleccioninput" type="radio" name="mascota" id=${mokepon.nombre}>
+        <label class="tarjeta_mokepon" for=${mokepon.nombre}>
+            <p>${mokepon.nombre}</p>
+            <img src=${mokepon.imagen} alt=${mokepon.nombre}>
+        </label>`
+
+        divSeleccionMascota.innerHTML += nuevoMokepon
+        // se cambia el valor de las variables arriba definidas
+        inputHipodoge=document.getElementById('hipodoge')
+        inputCapipepo=document.getElementById('capipepo')
+        inputRatiguya=document.getElementById('ratiguya')
+        inputLangostelvis=document.getElementById('langostelvis')
+        inputTucapalma=document.getElementById('tucapalma')
+        inputPydos=document.getElementById('pydos')
+
+    })
 }
 
 //se debe de generar una funcion en la que se indique que debe de hacer el boton
@@ -157,6 +185,8 @@ const seleccionDeMascota=()=>{
     }
     seccionSeleccionAtaque.style.display='flex'
     seccionSelccionMascota.style.display='none'
+
+    
 }
 
 //se definen las funciones que se quiere que se haga cada vez que se haga click en cada uno de los botones de ataque
