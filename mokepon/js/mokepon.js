@@ -58,12 +58,12 @@ let mascotaEnemigo=document.getElementById('mascota_enemigo')
 
 //como no reconoce las variables del input porque originalmente no estan en el html 
 //se van a definir como let ya que se va a cambiar el valor  en la funcion for each
-let inputHipodoge=document.getElementById('hipodoge')
-let inputCapipepo=document.getElementById('capipepo')
-let inputRatiguya=document.getElementById('ratiguya')
-let inputLangostelvis=document.getElementById('langostelvis')
-let inputTucapalma=document.getElementById('tucapalma')
-let inputPydos=document.getElementById('pydos')
+let inputHipodoge
+let inputCapipepo
+let inputRatiguya
+let inputLangostelvis
+let inputTucapalma
+let inputPydos
 
 
 //se va a generar una clase llamada Mokepon que nos genere mokepones que debe de contener
@@ -140,7 +140,7 @@ const iniciarJuego=()=>{
     seccionAtaqueEnemigo.style.display='none'
 
     mokepones.forEach((mokepon)=>{
-        nuevoMokepon=
+        nuevoMokepon= //fuente de verdad
         `<input  class="seleccioninput" type="radio" name="mascota" id=${mokepon.nombre}>
         <label class="tarjeta_mokepon" for=${mokepon.nombre}>
             <p>${mokepon.nombre}</p>
@@ -169,17 +169,21 @@ const seleccionDeMascota=()=>{
     if(inputHipodoge.checked){
     //si la opcion de hipodoge esta seleccionada, queremos que en el span de la pagina con el id mascota_jugador
     //se ponga el nombre de hipodoge mediante la siguiente linea nombre_mascota.innerHTML
-    nombre_mascota.innerHTML='hipodoge'
+    //se va cambiar la palabra puesta de forma manual 'hipodoge' que es el nombre del mokepon
+    //se va a poner de forma sistematica si vemos la variable inputCapipepo es un objeto
+    //entonces para acceder a el, podemos llamarlo inputCapipepo.id que es el nombre del mokepon
+    //tal y como aparece en la variable que se definio con for each
+    nombre_mascota.innerHTML=inputHipodoge.id 
     }else if(inputCapipepo.checked){
-        nombre_mascota.innerHTML='capipepo'
+        nombre_mascota.innerHTML=inputCapipepo.id
     }else if(inputRatiguya.checked){
-        nombre_mascota.innerHTML='ratiguya'
+        nombre_mascota.innerHTML=inputRatiguya.id
     }else if(inputLangostelvis.checked){
-        nombre_mascota.innerHTML='langostelvis'
+        nombre_mascota.innerHTML=inputLangostelvis.id
     }else if(inputTucapalma.checked){
-        nombre_mascota.innerHTML='tucapalma'
+        nombre_mascota.innerHTML=inputTucapalma.id
     }else if(inputPydos.checked){
-        nombre_mascota.innerHTML='pydos'
+        nombre_mascota.innerHTML=inputPydos.id
     }else{
         alert('selecciona uno')
     }
