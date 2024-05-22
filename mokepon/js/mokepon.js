@@ -3,9 +3,9 @@ const seleccionMascota=document.getElementById('boton_mascota')
 //selecciona el boton enemigo con id selecion_enemigo
 const botonEnemigo=document.getElementById('selecion_enemigo')
 //se agregan todos los botones de los ataques
-const botonAgua=document.getElementById('boton_agua')
-const botonFuego=document.getElementById('boton_fuego')
-const botonTierra=document.getElementById('boton_tierra')
+let botonAgua=document.getElementById('boton_agua')
+let botonFuego=document.getElementById('boton_fuego')
+let botonTierra=document.getElementById('boton_tierra')
 const botonBatalla=document.getElementById('selecion_ataque_enemigo')
 const botonReiniciar=document.getElementById('boton_reiniciar')
 const seccionSeleccionAtaque=document.getElementById('seleccion_ataque')
@@ -66,6 +66,7 @@ let inputTucapalma
 let inputPydos
 
 
+
 //se va a generar una clase llamada Mokepon que nos genere mokepones que debe de contener
 //nombre, imagen del mokepon que se toma desde el html y vidas
 //se va a agregar tambien un campo para ataques que contenga un array
@@ -115,9 +116,34 @@ ratiguya.ataques.push(
     {nombre:'💧', id:'boton_agua'},
 )
 
+langostelvis.ataques.push(
+    {nombre:'🔥', id:'boton_fuego'},
+    {nombre:'🔥', id:'boton_fuego'},
+    {nombre:'🔥', id:'boton_fuego'},
+    {nombre:'🌿', id:'boton _tierra'},
+    {nombre:'💧', id:'boton_agua'},
+)
+
+tucapalma.ataques.push(
+    {nombre:'🔥', id:'boton_fuego'},
+    {nombre:'🔥', id:'boton_fuego'},
+    {nombre:'🔥', id:'boton_fuego'},
+    {nombre:'🌿', id:'boton _tierra'},
+    {nombre:'💧', id:'boton_agua'},
+)
+
+pydos.ataques.push(
+    {nombre:'🔥', id:'boton_fuego'},
+    {nombre:'🔥', id:'boton_fuego'},
+    {nombre:'🔥', id:'boton_fuego'},
+    {nombre:'🌿', id:'boton _tierra'},
+    {nombre:'💧', id:'boton_agua'},
+)
+
 //se va a generar un arreglo que se llame mokepones y se van a guardar los mokepones existentes 
 let mokepones=[]
-mokepones.push(hipodoge,capipepo,ratiguya,langostelvis,tucapalma,pydos)
+//solo se van a poner los 3 primeros mokepones, se borraron los ultimos 3 
+mokepones.push(hipodoge,capipepo,ratiguya)
 
 //se define una variable global llamada ataque jugador que va a cambiar su valor dependiendo del boton de ataque que se presione
 const iniciarJuego=()=>{
@@ -190,7 +216,8 @@ const seleccionDeMascota=()=>{
     seccionSeleccionAtaque.style.display='flex'
     seccionSelccionMascota.style.display='none'
 
-    
+  
+
 }
 
 //se definen las funciones que se quiere que se haga cada vez que se haga click en cada uno de los botones de ataque
@@ -221,7 +248,6 @@ const ataqueTierra=()=>{
 const accionBotonEnemigo=()=>{
     //se va a definir de forma automatica el enemigo al azar basado en 
     //la lista de mokepones
-    let jugada=0
     const enemigo_azar=()=>{
         const azar=()=>{
             return  Math.floor(Math.random()*mokepones.length) //la formula es Math.floor(Math.random()*numero de elementos de la lista 
@@ -231,15 +257,9 @@ const accionBotonEnemigo=()=>{
     }
     //ahora insertamos el nombre del enemigo seleccionado al azar en span con el id mascota_enemigo
     //primero se seleccionar el elemento
-    
     mascotaEnemigo.innerHTML=enemigo_azar()   
-
     //poner que aparezca la seccion batalla
-
     seccionAtaqueEnemigo.style.display='block'
-   
-    //seccionMarcador.style.display='block'
-    
     nombreJugador1.style.display='flex'
     nombreContrincante.style.display='flex'
 }
