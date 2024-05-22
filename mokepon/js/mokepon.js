@@ -219,14 +219,15 @@ const ataqueTierra=()=>{
 
 //lo que queremos que haga cada vez que se accione el boton seleccion enemigo
 const accionBotonEnemigo=()=>{
-    
+    //se va a definir de forma automatica el enemigo al azar basado en 
+    //la lista de mokepones
     let jugada=0
     const enemigo_azar=()=>{
-        const mokepones=['hipodoge','capipepo','ratiguya','langostelvis','tucapalma','pydos']
-        const azar=(cantidad)=>{
-            return  Math.floor(Math.random()*cantidad)
+        const azar=()=>{
+            return  Math.floor(Math.random()*mokepones.length) //la formula es Math.floor(Math.random()*numero de elementos de la lista 
         }
-        return mokepones[azar(6)]
+        return mokepones[azar()].nombre //se cambio para que de forma automatica indique el nombre
+                                        //del mokepon que contiene el objeto. ejemplo mokepon[0].nombre
     }
     //ahora insertamos el nombre del enemigo seleccionado al azar en span con el id mascota_enemigo
     //primero se seleccionar el elemento
