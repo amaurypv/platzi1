@@ -137,6 +137,9 @@ es decir el label que es el que esta linkeado a ese input */
     align-items: center;
     justify-content: center;
 }
+.boton_ataque:hover{
+    background-color: aliceblue;
+}
 
 .sub_enemigo{
     display: flex;
@@ -174,25 +177,22 @@ es decir el label que es el que esta linkeado a ese input */
 }
 
 #ataque_enemigo button{
-    background-color: #00e5e5; /* Color de fondo del botón */
-            color: #000; /* Color del texto */
-            padding: 15px 30px; /* Espaciado interno */
-            font-size: 18px; /* Tamaño de la fuente */
-            font-weight: bold; /* Peso de la fuente */
-            border: none; /* Sin borde */
-            border-radius: 10px; /* Bordes redondeados */
-            cursor: pointer; /* Cursor de mano al pasar sobre el botón */
-            box-shadow: 0 0 20px rgba(0, 229, 229, 0.8); /* Sombra de resplandor inicial */
-            transition: box-shadow 0.3s ease; /* Transición suave para el cambio de sombra */
+    height: 45px;
+    width: 185px;
+    border-radius: 20px;
+    border: 2px solid white;
+    background: transparent;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: whitesmoke;
+    margin: 20px;
 }
 
-#ataque_enemigo button:hover{
-    box-shadow: 0 0 40px rgba(0, 229, 229, 1); /* Sombra de resplandor al pasar el ratón */
-}
-#ataque_enemigo button:active{
-    background-color: #1e7e34; /* Color de fondo al hacer clic */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra menos intensa */
-    transform: translateY(0); /* Restablecer elevación */
+#ataque_enemigo button:disabled{
+    background-color: #ccc; /* Gris claro */
+    color: #666; /* Gris oscuro */
+    cursor: not-allowed; /* Cursor de "no permitido" */
 }
 
 #caja_mensaje{

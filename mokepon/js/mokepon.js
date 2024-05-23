@@ -72,7 +72,8 @@ let inputRatiguya
 let inputLangostelvis
 let inputTucapalma
 let inputPydos
-
+let claseBAtaque=[]
+let contBotonesAtaque=[]
 
 
 //se va a generar una clase llamada Mokepon que nos genere mokepones que debe de contener
@@ -250,23 +251,56 @@ const seleccionDeMascota=()=>{
         }
     })
 
+    /* con las funciones que se pusieron, si se agregan los botones, pero los dos de en medio no tienen accion 
+    lo que se va a hacer es 
+    agregar una nueva clase a la clase existente dando solo un espacio y poniendo el nombre de la nueva clase para tener dos clases sin definirlas dos veces 
+    despues hacer una funcion que guarde todos los botones generados (querySelectorAll() misma que se generó antes  pero solo como claseBAtaque=[]
+    despues se va hacer una funcion que guarde los valores de cada boton que compare el textContent que tiene el elemento del boton 
+    por lo que va a ser necesario generar una variable contBotonesAtaque que contenga los botones con esa misma clase
+    */ 
     ataquesDeMokepon.forEach((ataque)=>{
         ataqueMokepon=
-        `<button id=${ataque.id} class="boton_ataque"> 
+        `<button id=${ataque.id} class="boton_ataque BAtaque"> 
         <p>${ataque.nombre}</p>
         </button>`
 
         botonesAtaque.innerHTML += ataqueMokepon
         
     })
+
     botonAgua=document.getElementById('boton_agua')
     botonFuego=document.getElementById('boton_fuego')
     botonTierra=document.getElementById('boton_tierra')
     botonAgua.addEventListener('click',ataqueAgua)    
     botonFuego.addEventListener('click',ataqueFuego)    
     botonTierra.addEventListener('click',ataqueTierra)  
-}
+    claseBAtaque=document.querySelectorAll('.BAtaque')
 
+    /* esta es la funcion que se genero para recorrer por cada elemento de claseBAtaque y que se agregue el textcontext a una 
+    nueva variable llamada contBotonesAtaque que se definió antes como  contBotonesAtaque=[] */
+    const agregarAtaques=()=>{
+        claseBAtaque.forEach((boton)=>{
+            boton.addEventListener('click',(e)=>{
+                if(e.target.textContent==' \n        💧\n        '){
+                    contBotonesAtaque.push('Agua')
+                    boton.style.background='grey'
+                    boton.disabled=true
+                }else if(e.target.textContent==' \n        🔥\n        '){
+                    contBotonesAtaque.push('Fuego')
+                    boton.style.background='grey'
+                    boton.disabled=true
+                }else{
+                    contBotonesAtaque.push('Tierra')
+                    boton.style.background='grey'
+                    boton.disabled=true
+                }
+            }
+            )
+        }
+        )
+    }
+    agregarAtaques()
+}   
 
 
 //se definen las funciones que se quiere que se haga cada vez que se haga click en cada uno de los botones de ataque
@@ -275,6 +309,7 @@ const ataqueFuego=()=>{
     ataqueSeleccionado.innerHTML=ataqueJugador
     seccionEnemigo.style.display='block'
     mensajeAtaque.style.display='block' 
+    
 }
 
 const ataqueAgua=()=>{
