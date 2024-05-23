@@ -27,6 +27,14 @@ const nombre_mascota=document.getElementById('mascota_jugador')
 const ataqueSeleccionado=document.getElementById('ataque')
 const mensajeAtaque=document.getElementById('mensaje_ataque')
 
+//se va a definir el div con el id de los botones de ataque
+const botonesAtaque=document.getElementById('botones_ataque')
+//y se definirá una nueva variable llamada ataque. 
+let ataquesDeMokepon 
+let ataqueMokepon
+// y otra variable que contenga el nombre del mokepon seleccionado 
+let mokeponSeleccionado
+
 const nombreJugador1=document.getElementById('nombre_jugador1')
 const nombreContrincante=document.getElementById('nombre_contrincante')
 
@@ -97,13 +105,13 @@ hipodoge.ataques.push(
     {nombre:'💧', id:'boton_agua'},
     {nombre:'💧', id:'boton_agua'},
     {nombre:'🔥', id:'boton_fuego'},
-    {nombre:'🌿', id:'boton _tierra'}
+    {nombre:'🌿', id:'boton_tierra'}
 )
 //capipepo es de tierra, por lo que debe de tener 3 ataques de tierra
 capipepo.ataques.push(
-    {nombre:'🌿', id:'boton _tierra'},
-    {nombre:'🌿', id:'boton _tierra'},
-    {nombre:'🌿', id:'boton _tierra'},
+    {nombre:'🌿', id:'boton_tierra'},
+    {nombre:'🌿', id:'boton_tierra'},
+    {nombre:'🌿', id:'boton_tierra'},
     {nombre:'💧', id:'boton_agua'},
     {nombre:'🔥', id:'boton_fuego'},
 )
@@ -112,7 +120,7 @@ ratiguya.ataques.push(
     {nombre:'🔥', id:'boton_fuego'},
     {nombre:'🔥', id:'boton_fuego'},
     {nombre:'🔥', id:'boton_fuego'},
-    {nombre:'🌿', id:'boton _tierra'},
+    {nombre:'🌿', id:'boton_tierra'},
     {nombre:'💧', id:'boton_agua'},
 )
 
@@ -120,7 +128,7 @@ langostelvis.ataques.push(
     {nombre:'🔥', id:'boton_fuego'},
     {nombre:'🔥', id:'boton_fuego'},
     {nombre:'🔥', id:'boton_fuego'},
-    {nombre:'🌿', id:'boton _tierra'},
+    {nombre:'🌿', id:'boton_tierra'},
     {nombre:'💧', id:'boton_agua'},
 )
 
@@ -128,7 +136,7 @@ tucapalma.ataques.push(
     {nombre:'🔥', id:'boton_fuego'},
     {nombre:'🔥', id:'boton_fuego'},
     {nombre:'🔥', id:'boton_fuego'},
-    {nombre:'🌿', id:'boton _tierra'},
+    {nombre:'🌿', id:'boton_tierra'},
     {nombre:'💧', id:'boton_agua'},
 )
 
@@ -136,7 +144,7 @@ pydos.ataques.push(
     {nombre:'🔥', id:'boton_fuego'},
     {nombre:'🔥', id:'boton_fuego'},
     {nombre:'🔥', id:'boton_fuego'},
-    {nombre:'🌿', id:'boton _tierra'},
+    {nombre:'🌿', id:'boton_tierra'},
     {nombre:'💧', id:'boton_agua'},
 )
 
@@ -151,10 +159,7 @@ const iniciarJuego=()=>{
     seleccionMascota.addEventListener("click",seleccionDeMascota)
     //se agrega un listener que al hacer click, haga algo
     botonEnemigo.addEventListener("click", accionBotonEnemigo) 
-    //cada boton debe de tener su listener
-    botonAgua.addEventListener('click',ataqueAgua)    
-    botonFuego.addEventListener('click',ataqueFuego)    
-    botonTierra.addEventListener('click',ataqueTierra)    
+    //cada boton debe de tener su listener  
     botonBatalla.addEventListener('click',batalla)    
     botonReiniciar.addEventListener('click',reiniciarjuego)   
     //hacer que la seccion no se vea se pone style.display='none'
@@ -183,6 +188,13 @@ const iniciarJuego=()=>{
         inputPydos=document.getElementById('pydos')
 
     })
+
+    //se va a poner los botones de cada uno de los ataques dependiendo del mokepon que se selecciono
+    //para eso se va a repetir el proceso de hacer un recorrido por todos los mokepones
+    //hasta hacerlo coincidir con el mokepon seleccionado.
+    //primero se selcciona el div con el id en html que contiene los botones de ataques. 
+    //esta variable se define junto con las variables universales () 
+
 }
 
 //se debe de generar una funcion en la que se indique que debe de hacer el boton
@@ -199,26 +211,63 @@ const seleccionDeMascota=()=>{
     //se va a poner de forma sistematica si vemos la variable inputCapipepo es un objeto
     //entonces para acceder a el, podemos llamarlo inputCapipepo.id que es el nombre del mokepon
     //tal y como aparece en la variable que se definio con for each
-    nombre_mascota.innerHTML=inputHipodoge.id 
+        nombre_mascota.innerHTML=inputHipodoge.id 
+        mokeponSeleccionado=inputHipodoge.id
     }else if(inputCapipepo.checked){
         nombre_mascota.innerHTML=inputCapipepo.id
+        mokeponSeleccionado=inputCapipepo.id
     }else if(inputRatiguya.checked){
         nombre_mascota.innerHTML=inputRatiguya.id
+        mokeponSeleccionado=inputRatiguya.id
     }else if(inputLangostelvis.checked){
         nombre_mascota.innerHTML=inputLangostelvis.id
+        mokeponSeleccionado=inputLangostelvis.id
     }else if(inputTucapalma.checked){
         nombre_mascota.innerHTML=inputTucapalma.id
+        mokeponSeleccionado=inputTucapalma.id
     }else if(inputPydos.checked){
         nombre_mascota.innerHTML=inputPydos.id
+        mokeponSeleccionado=inputPydos.id
     }else{
         alert('selecciona uno')
     }
     seccionSeleccionAtaque.style.display='flex'
     seccionSelccionMascota.style.display='none'
+    
+    /* para poner botones de ataque de forma automatica se hace el mismo procecidimiento que con las imagenes
+    primero se hace un recorrido por todo el array de mokepones con foreach buscando el nombre
+    del mokepon del array coincida con el del mokepon seleccionado
+    una vez que se encuentra el mokepon, se define los ataques deben de ser los del mokepon 
+    con la variable antes definida como ataqueDeMokepon 
+    como ataquesDeMokepon es una array, tambien se tiene que hacer un recorrido por todo el 
+    array y por cada elemento del array se va a definir el id y el nombre con la estructura que 
+    se tiene de html 
+    por ultimo y muy importante se tienen que actualizar las variables de los botones 
+    asi como sus addEventListener*/ 
+    mokepones.forEach((mokepon)=>{
+        if(mokepon.nombre===mokeponSeleccionado){
+            ataquesDeMokepon=mokepon.ataques
+        }
+    })
 
-  
+    ataquesDeMokepon.forEach((ataque)=>{
+        ataqueMokepon=
+        `<button id=${ataque.id} class="boton_ataque"> 
+        <p>${ataque.nombre}</p>
+        </button>`
 
+        botonesAtaque.innerHTML += ataqueMokepon
+        
+    })
+    botonAgua=document.getElementById('boton_agua')
+    botonFuego=document.getElementById('boton_fuego')
+    botonTierra=document.getElementById('boton_tierra')
+    botonAgua.addEventListener('click',ataqueAgua)    
+    botonFuego.addEventListener('click',ataqueFuego)    
+    botonTierra.addEventListener('click',ataqueTierra)  
 }
+
+
 
 //se definen las funciones que se quiere que se haga cada vez que se haga click en cada uno de los botones de ataque
 const ataqueFuego=()=>{
