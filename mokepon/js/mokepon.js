@@ -55,7 +55,8 @@ llamado div_seleccion_mascota y se define una nueva variable que es la va que a 
 caracteristicas tal y como se pusieron en hmtl */ 
 const divSeleccionMascota=document.getElementById('div_seleccion_mascota')
 let nuevoMokepon
-
+let mascotaEnemigoSeleccionadaAzar
+let ataquesDeMokeponEnemigo
 let ataqueJugador
 let ataqueAzarEnemigo
 let jugada
@@ -74,6 +75,7 @@ let inputTucapalma
 let inputPydos
 let claseBAtaque=[]
 let contBotonesAtaque=[]
+let contBotonesAtaqueEnemigo=[]
 
 
 //se va a generar una clase llamada Mokepon que nos genere mokepones que debe de contener
@@ -159,7 +161,7 @@ const iniciarJuego=()=>{
     //para darle la accion al boton de mascota cuando haga click y que debe de hacer
     seleccionMascota.addEventListener("click",seleccionDeMascota)
     //se agrega un listener que al hacer click, haga algo
-    botonEnemigo.addEventListener("click", accionBotonEnemigo) 
+    //botonEnemigo.addEventListener("click", accionBotonEnemigo) 
     //cada boton debe de tener su listener  
     botonBatalla.addEventListener('click',batalla)    
     botonReiniciar.addEventListener('click',reiniciarjuego)   
@@ -234,7 +236,32 @@ const seleccionDeMascota=()=>{
     }
     seccionSeleccionAtaque.style.display='flex'
     seccionSelccionMascota.style.display='none'
-    
+
+
+
+    //se va a seleccionar tambien el enemigo, pero este de forma aleatoria. 
+
+    const seleccionEnemigoAzar=()=>{
+        //se va a definir de forma automatica el enemigo al azar basado en 
+        //la lista de mokepones
+        const enemigo_azar=()=>{
+            const azar=()=>{
+                return  Math.floor(Math.random()*mokepones.length) //la formula es Math.floor(Math.random()*numero de elementos de la lista 
+            }
+            mascotaEnemigoSeleccionadaAzar= mokepones[azar()].nombre //se cambio para que de forma automatica indique el nombre
+                                            //del mokepon que contiene el objeto. ejemplo mokepon[0].nombre
+                return mascotaEnemigoSeleccionadaAzar
+        }
+        //ahora insertamos el nombre del enemigo seleccionado al azar en span con el id mascota_enemigo
+        //primero se seleccionar el elemento
+        mascotaEnemigo.innerHTML=enemigo_azar()   
+        //poner que aparezca la seccion batalla
+        seccionAtaqueEnemigo.style.display='block'
+        nombreJugador1.style.display='flex'
+        nombreContrincante.style.display='flex'
+    }
+
+    seleccionEnemigoAzar()
     /* para poner botones de ataque de forma automatica se hace el mismo procecidimiento que con las imagenes
     primero se hace un recorrido por todo el array de mokepones con foreach buscando el nombre
     del mokepon del array coincida con el del mokepon seleccionado
@@ -251,6 +278,13 @@ const seleccionDeMascota=()=>{
         }
     })
 
+    // se selecciona los ataques de la mascota enemiga de acuerdo a su seleccion
+    mokepones.forEach((mokepon)=>{
+        if(mokepon.nombre===mascotaEnemigoSeleccionadaAzar){
+            ataquesDeMokeponEnemigo=mokepon.ataques
+        }
+    })
+    
     /* con las funciones que se pusieron, si se agregan los botones, pero los dos de en medio no tienen accion 
     lo que se va a hacer es 
     agregar una nueva clase a la clase existente dando solo un espacio y poniendo el nombre de la nueva clase para tener dos clases sin definirlas dos veces 
@@ -258,16 +292,16 @@ const seleccionDeMascota=()=>{
     despues se va hacer una funcion que guarde los valores de cada boton que compare el textContent que tiene el elemento del boton 
     por lo que va a ser necesario generar una variable contBotonesAtaque que contenga los botones con esa misma clase
     */ 
-    ataquesDeMokepon.forEach((ataque)=>{
-        ataqueMokepon=
+   ataquesDeMokepon.forEach((ataque)=>{
+       ataqueMokepon=
         `<button id=${ataque.id} class="boton_ataque BAtaque"> 
         <p>${ataque.nombre}</p>
         </button>`
-
+        
         botonesAtaque.innerHTML += ataqueMokepon
         
     })
-
+    
     botonAgua=document.getElementById('boton_agua')
     botonFuego=document.getElementById('boton_fuego')
     botonTierra=document.getElementById('boton_tierra')
@@ -284,24 +318,56 @@ const seleccionDeMascota=()=>{
                 if(e.target.textContent==' \n        💧\n        '){
                     contBotonesAtaque.push('Agua')
                     boton.style.background='grey'
-                    boton.disabled=true
+                    console.log(contBotonesAtaque)
+                    contBotonesAtaqueEnemigo.push(ataqueEnemigo())
+                    console.log(contBotonesAtaqueEnemigo)
+                    //boton.disabled=true
                 }else if(e.target.textContent==' \n        🔥\n        '){
                     contBotonesAtaque.push('Fuego')
                     boton.style.background='grey'
-                    boton.disabled=true
+                    console.log(contBotonesAtaque)
+                    contBotonesAtaqueEnemigo.push(ataqueEnemigo())
+                    console.log(contBotonesAtaqueEnemigo)
+                    //boton.disabled=true
                 }else{
                     contBotonesAtaque.push('Tierra')
                     boton.style.background='grey'
-                    boton.disabled=true
+                    console.log(contBotonesAtaque)
+                    contBotonesAtaqueEnemigo.push(ataqueEnemigo())
+                    console.log(contBotonesAtaqueEnemigo)
+
+                    //boton.disabled=true
                 }
             }
             )
         }
         )
+        
     }
+    
     agregarAtaques()
+    
+    
+    
+    //Ahora se seleccionará el ataque al azar tomando en cuenta los ataques del mokepon
+    
+    /*para agregar los ataques del enemigo, primero debemos de saber cual es el enemigo que se seleccionó de manera random y
+    vincularlos con sus ataques correspondientes.*/
+    
 }   
 
+const ataqueEnemigo=()=>{
+    const azar=()=>{
+        return  Math.floor(Math.random()*ataquesDeMokeponEnemigo.length) //la formula es Math.floor(Math.random()*numero de elementos de la lista 
+    }
+    if(ataquesDeMokeponEnemigo[azar()].nombre=='🔥'){
+        return 'Fuego'
+    }else if(ataquesDeMokeponEnemigo[azar()].nombre=='🌿'){
+        return 'Tierra'
+    }else{
+        return 'Agua'
+    }
+}
 
 //se definen las funciones que se quiere que se haga cada vez que se haga click en cada uno de los botones de ataque
 const ataqueFuego=()=>{
@@ -319,6 +385,7 @@ const ataqueAgua=()=>{
     //se pone style.display='block'
     seccionEnemigo.style.display='block'  
     mensajeAtaque.style.display='block'
+
 }
 
 const ataqueTierra=()=>{
@@ -326,38 +393,14 @@ const ataqueTierra=()=>{
     ataqueSeleccionado.innerHTML=ataqueJugador
     seccionEnemigo.style.display='block' 
     mensajeAtaque.style.display='block'
+    
 }
 
 //lo que queremos que haga cada vez que se accione el boton seleccion enemigo
-const accionBotonEnemigo=()=>{
-    //se va a definir de forma automatica el enemigo al azar basado en 
-    //la lista de mokepones
-    const enemigo_azar=()=>{
-        const azar=()=>{
-            return  Math.floor(Math.random()*mokepones.length) //la formula es Math.floor(Math.random()*numero de elementos de la lista 
-        }
-        return mokepones[azar()].nombre //se cambio para que de forma automatica indique el nombre
-                                        //del mokepon que contiene el objeto. ejemplo mokepon[0].nombre
-    }
-    //ahora insertamos el nombre del enemigo seleccionado al azar en span con el id mascota_enemigo
-    //primero se seleccionar el elemento
-    mascotaEnemigo.innerHTML=enemigo_azar()   
-    //poner que aparezca la seccion batalla
-    seccionAtaqueEnemigo.style.display='block'
-    nombreJugador1.style.display='flex'
-    nombreContrincante.style.display='flex'
-}
 
 const batalla=()=>{
     let resultado
-    const ataqueEnemigo=()=>{
-        let tiposAtaques=["Fuego 🔥", "Agua 💧", "Tierra 🌿"]
-        const azar=(cantidad)=>{
-            return  Math.floor(Math.random()*cantidad)
-        }
-        return tiposAtaques[azar(3)]
-    }
-    ataqueAzarEnemigo=ataqueEnemigo()
+    
 
     const juego=()=>{
         if(ataqueJugador=='Fuego 🔥' && ataqueAzarEnemigo=='Tierra 🌿'){

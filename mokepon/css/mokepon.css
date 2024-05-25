@@ -114,6 +114,14 @@ es decir el label que es el que esta linkeado a ese input */
     align-items: center;
 }
 
+/* la nueva clase (BAtaque) que se definió con el recorrido de ataquesDeMokepon 
+se agrega una nueva función cuando boton ya hizo click
+*/
+
+.BAtaque:disabled{
+    cursor: not-allowed;
+}
+
 
 #botones_ataque{
     display: flex;
