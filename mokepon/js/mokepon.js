@@ -305,9 +305,9 @@ const seleccionDeMascota=()=>{
     botonAgua=document.getElementById('boton_agua')
     botonFuego=document.getElementById('boton_fuego')
     botonTierra=document.getElementById('boton_tierra')
-    botonAgua.addEventListener('click',ataqueAgua)    
-    botonFuego.addEventListener('click',ataqueFuego)    
-    botonTierra.addEventListener('click',ataqueTierra)  
+    // botonAgua.addEventListener('click',ataqueAgua)    
+    // botonFuego.addEventListener('click',ataqueFuego)    
+    // botonTierra.addEventListener('click',ataqueTierra)  
     claseBAtaque=document.querySelectorAll('.BAtaque')
 
     /* esta es la funcion que se genero para recorrer por cada elemento de claseBAtaque y que se agregue el textcontext a una 
@@ -369,32 +369,34 @@ const ataqueEnemigo=()=>{
     }
 }
 
+//se eliminan estas funciones porque las funciones a cada boton de ataque se dieron con la funcion agregarAtaques()
+
 //se definen las funciones que se quiere que se haga cada vez que se haga click en cada uno de los botones de ataque
-const ataqueFuego=()=>{
-    ataqueJugador='Fuego 🔥'
-    ataqueSeleccionado.innerHTML=ataqueJugador
-    seccionEnemigo.style.display='block'
-    mensajeAtaque.style.display='block' 
+// const ataqueFuego=()=>{
+//     ataqueJugador='Fuego 🔥'
+//     ataqueSeleccionado.innerHTML=ataqueJugador
+//     seccionEnemigo.style.display='block'
+//     mensajeAtaque.style.display='block' 
     
-}
+// }
 
-const ataqueAgua=()=>{
-    ataqueJugador='Agua 💧'
-    ataqueSeleccionado.innerHTML=ataqueJugador
-    //hacer que aparezca la seccion que se tenia escondida.
-    //se pone style.display='block'
-    seccionEnemigo.style.display='block'  
-    mensajeAtaque.style.display='block'
+// const ataqueAgua=()=>{
+//     ataqueJugador='Agua 💧'
+//     ataqueSeleccionado.innerHTML=ataqueJugador
+//     //hacer que aparezca la seccion que se tenia escondida.
+//     //se pone style.display='block'
+//     seccionEnemigo.style.display='block'  
+//     mensajeAtaque.style.display='block'
 
-}
+// }
 
-const ataqueTierra=()=>{
-    ataqueJugador='Tierra 🌿'    
-    ataqueSeleccionado.innerHTML=ataqueJugador
-    seccionEnemigo.style.display='block' 
-    mensajeAtaque.style.display='block'
+// const ataqueTierra=()=>{
+//     ataqueJugador='Tierra 🌿'    
+//     ataqueSeleccionado.innerHTML=ataqueJugador
+//     seccionEnemigo.style.display='block' 
+//     mensajeAtaque.style.display='block'
     
-}
+// }
 
 //lo que queremos que haga cada vez que se accione el boton seleccion enemigo
 
