@@ -60,8 +60,8 @@ let ataquesDeMokeponEnemigo
 let ataqueJugador
 let ataqueAzarEnemigo
 let jugada
-let misVidas=3
-let vidasEnemigo=3
+let misVidas=0
+let vidasEnemigo=0
 
 let mascotaEnemigo=document.getElementById('mascota_enemigo')
 
@@ -77,7 +77,8 @@ let claseBAtaque=[]
 let contBotonesAtaque=[]
 let contBotonesAtaqueEnemigo=[]
 
-
+let ataqueJugador1
+let ataqueContrincante
 //se va a generar una clase llamada Mokepon que nos genere mokepones que debe de contener
 //nombre, imagen del mokepon que se toma desde el html y vidas
 //se va a agregar tambien un campo para ataques que contenga un array
@@ -321,23 +322,22 @@ const seleccionDeMascota=()=>{
                     console.log(contBotonesAtaque)
                     contBotonesAtaqueEnemigo.push(ataqueEnemigo())
                     console.log(contBotonesAtaqueEnemigo)
-                    //boton.disabled=true
+                    boton.disabled=true
                 }else if(e.target.textContent==' \n        🔥\n        '){
                     contBotonesAtaque.push('Fuego')
                     boton.style.background='grey'
                     console.log(contBotonesAtaque)
                     contBotonesAtaqueEnemigo.push(ataqueEnemigo())
                     console.log(contBotonesAtaqueEnemigo)
-                    //boton.disabled=true
+                    boton.disabled=true
                 }else{
                     contBotonesAtaque.push('Tierra')
                     boton.style.background='grey'
                     console.log(contBotonesAtaque)
                     contBotonesAtaqueEnemigo.push(ataqueEnemigo())
                     console.log(contBotonesAtaqueEnemigo)
-
-                    //boton.disabled=true
-                }
+                    boton.disabled=true
+                }   
             }
             )
         }
@@ -357,15 +357,19 @@ const seleccionDeMascota=()=>{
 }   
 
 const ataqueEnemigo=()=>{
-    const azar=()=>{
-        return  Math.floor(Math.random()*ataquesDeMokeponEnemigo.length) //la formula es Math.floor(Math.random()*numero de elementos de la lista 
-    }
-    if(ataquesDeMokeponEnemigo[azar()].nombre=='🔥'){
-        return 'Fuego'
-    }else if(ataquesDeMokeponEnemigo[azar()].nombre=='🌿'){
-        return 'Tierra'
-    }else{
-        return 'Agua'
+
+    while(ataquesDeMokeponEnemigo.length>0){
+        const azar=()=>{
+            return  Math.floor(Math.random()*ataquesDeMokeponEnemigo.length) //la formula es Math.floor(Math.random()*numero de elementos de la lista 
+        }
+        if(ataquesDeMokeponEnemigo[azar()].nombre=='🔥'){
+            return 'Fuego'
+        }else if(ataquesDeMokeponEnemigo[azar()].nombre=='🌿'){
+            return 'Tierra'
+        }else{
+            return 'Agua'
+        }
+    
     }
 }
 
@@ -402,62 +406,118 @@ const ataqueEnemigo=()=>{
 
 const batalla=()=>{
     let resultado
+
     
-
     const juego=()=>{
-        if(ataqueJugador=='Fuego 🔥' && ataqueAzarEnemigo=='Tierra 🌿'){
-            resultado='Ganaste'
-            vidasEnemigo--
-        }else if(ataqueJugador=='Agua 💧' && ataqueAzarEnemigo=='Fuego 🔥'){
-            resultado='Ganaste'
-            vidasEnemigo--
-        }else if(ataqueJugador=='Tierra 🌿' && ataqueAzarEnemigo=='Agua 💧'){
-            resultado='Ganaste'
-            vidasEnemigo--
-        }else if(ataqueJugador==ataqueAzarEnemigo){
-            resultado="Empate"
-        }else{
-            resultado="Perdiste"
-            misVidas --
-        }
+        // if(ataqueJugador=='Fuego 🔥' && ataqueAzarEnemigo=='Tierra 🌿'){
+        //     resultado='Ganaste'
+        //     vidasEnemigo--
+        // }else if(ataqueJugador=='Agua 💧' && ataqueAzarEnemigo=='Fuego 🔥'){
+        //     resultado='Ganaste'
+        //     vidasEnemigo--
+        // }else if(ataqueJugador=='Tierra 🌿' && ataqueAzarEnemigo=='Agua 💧'){
+        //     resultado='Ganaste'
+        //     vidasEnemigo--
+        // }else if(ataqueJugador==ataqueAzarEnemigo){
+        //     resultado="Empate"
+        // }else{
+        //     resultado="Perdiste"
+        //     misVidas --
+        // }
     }
-    juego()
-    let nuevoMensaje=document.createElement('p')
-    nuevoMensaje.innerHTML=` tu mascota ataco con ${ataqueJugador}, tu enemigo atacó con ${ataqueAzarEnemigo}, por lo tanto         ${resultado}`
-    seccionMensajes.appendChild(nuevoMensaje)
-    spanMisVidas.innerHTML=misVidas
-    spanVidasEnemigo.innerHTML=vidasEnemigo
+    /* se hace la logica en la que se compara cada elemento de los contenedores de los ataques seleccionados*/
+    if(contBotonesAtaque.length===5){
+        for(let i=0;i<contBotonesAtaque.length;i++){
+            if(contBotonesAtaque[i]=='Fuego'&& contBotonesAtaqueEnemigo[i]=='Tierra'){
+                resultado='Ganaste'
+                misVidas++
+            }else if(contBotonesAtaque[i]=='Agua'&& contBotonesAtaqueEnemigo[i]=='Fuego'){
+                resultado='Ganaste'
+                misVidas++
+            }else if(contBotonesAtaque[i]=='Tierra'&& contBotonesAtaqueEnemigo[i]=='Agua'){
+                resultado='Ganaste'
+                misVidas++
+            }else if(contBotonesAtaque[i]==contBotonesAtaqueEnemigo[i]){
+                resultado="Empate"
+            }else{
+                resultado="Perdiste"
+                vidasEnemigo ++
+            }
+            ataqueJugador=contBotonesAtaque[i]
+            ataqueAzarEnemigo=contBotonesAtaqueEnemigo[i]
 
-    const revisarVidas=()=>{
-        const deshabilitar=()=>{
-            
-            //hacer que un boton se apague, es decir que no se pueda hacer click
-            botonBatalla.disabled=true
+            ataqueJugador1=document.createElement('p')
+            ataqueContrincante=document.createElement('p')
+            ataqueJugador1.innerHTML=ataqueJugador
+            ataqueContrincante.innerHTML=ataqueAzarEnemigo
+
+            //dependiendo del resultado se agrega una clase a cada parrafo para cambiar el color del ataque que gano
+            if (resultado === 'Ganaste') {
+                ataqueJugador1.classList.add('ganaste');
+            } else if (resultado === 'Perdiste') {
+                ataqueContrincante.classList.add('perdiste');
+            } else if (resultado === 'Empate') {
+                ataqueJugador1.classList.add('empate');
+                ataqueContrincante.classList.add('empate');
+            }
+
+            divJugador1.appendChild(ataqueJugador1)
+            divContrincante.appendChild(ataqueContrincante)  
         }
-        if(vidasEnemigo ==0){
+
+        spanMisVidas.innerHTML=misVidas
+        spanVidasEnemigo.innerHTML=vidasEnemigo
+        seccionReiniciar.style.display='flex'
+
+        if(misVidas>vidasEnemigo){
+            let nuevoMensaje=document.createElement('p')
+            nuevoMensaje.innerHTML=`Ganaste`
+            seccionMensajeganador.appendChild(nuevoMensaje)
+        }else if(misVidas<vidasEnemigo){
+            let nuevoMensaje=document.createElement('p')
+            nuevoMensaje.innerHTML=`Perdiste`
+            seccionMensajeganador.appendChild(nuevoMensaje)
+        }else if(misVidas==vidasEnemigo){
+            let nuevoMensaje=document.createElement('p')
+            nuevoMensaje.innerHTML=`Empate`
+            seccionMensajeganador.appendChild(nuevoMensaje)
+        }
+
+    }else{
+        alert('selecciona 5 ataques')
+    }
+
+
+    // let nuevoMensaje=document.createElement('p')
+    // nuevoMensaje.innerHTML=` tu mascota ataco con ${ataqueJugador}, tu enemigo atacó con ${ataqueAzarEnemigo}, por lo tanto         ${resultado}`
+    // seccionMensajes.appendChild(nuevoMensaje)
+    // spanMisVidas.innerHTML=misVidas
+    // spanVidasEnemigo.innerHTML=vidasEnemigo
+
+    // const revisarVidas=()=>{
+    //     const deshabilitar=()=>{
+            
+    //         //hacer que un boton se apague, es decir que no se pueda hacer click
+    //         botonBatalla.disabled=true
+    //     }
+    //     if(vidasEnemigo ==0){
            
-            let nuevoMensaje=document.createElement('p')
-            nuevoMensaje.innerHTML=` SE ACABO EL JUEGO, GANASTE`
-            seccionMensajeganador.appendChild(nuevoMensaje)
-            deshabilitar()
+    //         let nuevoMensaje=document.createElement('p')
+    //         nuevoMensaje.innerHTML=` SE ACABO EL JUEGO, GANASTE`
+    //         seccionMensajeganador.appendChild(nuevoMensaje)
+    //         deshabilitar()
             
-            seccionReiniciar.style.display='flex'
-        }else if(misVidas==0){
-            let nuevoMensaje=document.createElement('p')
-            nuevoMensaje.innerHTML=`SE ACABO EL JUEGO PERDISTE`
-            seccionMensajeganador.appendChild(nuevoMensaje)
-            deshabilitar()
-            seccionReiniciar.style.display='flex'
-        }
-    }
-    revisarVidas()
+    //         seccionReiniciar.style.display='flex'
+    //     }else if(misVidas==0){
+    //         let nuevoMensaje=document.createElement('p')
+    //         nuevoMensaje.innerHTML=`SE ACABO EL JUEGO PERDISTE`
+    //         seccionMensajeganador.appendChild(nuevoMensaje)
+    //         deshabilitar()
+    //         seccionReiniciar.style.display='flex'
+    //     }
+    // }
+    // revisarVidas()
 
-    let ataqueJugador1=document.createElement('p')
-    let ataqueContrincante=document.createElement('p')
-    ataqueJugador1.innerHTML=ataqueJugador
-    ataqueContrincante.innerHTML=ataqueAzarEnemigo
-    divJugador1.appendChild(ataqueJugador1)
-    divContrincante.appendChild(ataqueContrincante)
     
 
 }

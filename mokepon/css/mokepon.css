@@ -270,6 +270,20 @@ se agrega una nueva función cuando boton ya hizo click
     transition: box-shadow 0.3s ease 0s;
 }
 
+/*se agregaron las clases para los renglones de ganador*/
+.ganaste {
+    color: green; /* Color para cuando ganas */
+}
+
+.perdiste {
+    color: green; /* Color para cuando pierdes */
+}
+
+.empate {
+    color: gray; /* Color para empates */
+}
+
+
 /* si queremos que la ubicacion de los elementos se mueva dependiendo del tamaño 
 de pantallas se usa @media con ella vamos a poner el limite maximo con el que 
 queremos que se hagan las modificaciones de los elementos*/
