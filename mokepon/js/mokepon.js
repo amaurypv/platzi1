@@ -199,6 +199,23 @@ const iniciarJuego=()=>{
     //primero se selcciona el div con el id en html que contiene los botones de ataques. 
     //esta variable se define junto con las variables universales () 
 
+    /*a partir de la pagina http://localhost:8080/jugador se va a obtener un dato y se tiene que 
+    imprimir en la consola usando la funcion fetch*/
+    
+    fetch('http://localhost:8080/jugador') //se hace el fetch a la direccion que tenemos en express
+    .then(response=>{ //siempre despues de un fetch se tiene que hacer un .then(funcion())
+                    //en este caso se pone response como variable
+        if(response.ok){ //se comprueba si el resultado de response.ok es true
+                        //esto se puede ver tambien poniendo console.log(response)
+            response.text() // si response.ok es true manda otra promesa y por lo tanto 
+                            //hay que hacer lo mismo que el primer fetch hacer otro .then()
+                .then(data=>{ //se toma la variable data
+                    console.log(data) //pedimos que se imprima en la consola la variable data
+                })
+        }
+
+    })
+
 }
 
 //se debe de generar una funcion en la que se indique que debe de hacer el boton
@@ -357,7 +374,6 @@ const seleccionDeMascota=()=>{
 }   
 
 const ataqueEnemigo=()=>{
-
     while(ataquesDeMokeponEnemigo.length>0){
         const azar=()=>{
             return  Math.floor(Math.random()*ataquesDeMokeponEnemigo.length) //la formula es Math.floor(Math.random()*numero de elementos de la lista 
@@ -369,7 +385,7 @@ const ataqueEnemigo=()=>{
         }else{
             return 'Agua'
         }
-    
+        ataquesDeMokeponEnemigo.splice(azar(),1)
     }
 }
 
