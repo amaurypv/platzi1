@@ -79,6 +79,8 @@ let contBotonesAtaqueEnemigo=[]
 
 let ataqueJugador1
 let ataqueContrincante
+
+let idJugador=null
 //se va a generar una clase llamada Mokepon que nos genere mokepones que debe de contener
 //nombre, imagen del mokepon que se toma desde el html y vidas
 //se va a agregar tambien un campo para ataques que contenga un array
@@ -211,6 +213,7 @@ const iniciarJuego=()=>{
                             //hay que hacer lo mismo que el primer fetch hacer otro .then()
                 .then(data=>{ //se toma la variable data
                     console.log(data) //pedimos que se imprima en la consola la variable data
+                    idJugador=data
                 })
         }
 
@@ -255,8 +258,8 @@ const seleccionDeMascota=()=>{
     seccionSeleccionAtaque.style.display='flex'
     seccionSelccionMascota.style.display='none'
 
-
-
+    //aqui se va a llamar la funcion enviarMascota() que se encarga de enviar el nombre de la mascota al servidor
+    enviarMascota(mokeponSeleccionado)
     //se va a seleccionar tambien el enemigo, pero este de forma aleatoria. 
 
     const seleccionEnemigoAzar=()=>{
@@ -373,6 +376,21 @@ const seleccionDeMascota=()=>{
     
 }   
 
+//se define la nueva funcion para poder hacer un post que se genero en el archivo index
+const enviarMascota=(mokeponSeleccionado)=>{
+    //se hace el fetch con los datos de como se puso el app.post '/mokepon/:idJugador'
+    //donde idJugador es el id del jugador que se puso en el url mismo que se va a tomar de la variable 
+    //idJugador que se definio en la linea 13 y que toma el valor a partir del app.get que se genero antes.
+    fetch(`http://localhost:8080/mokepon/${idJugador}`, 
+    //se abre una llave como segundo parametro y dentro de la llave van los siguientes valores
+    //el primer valor es el metodo que se va a usar, en este caso es post
+    {method:'post',
+    // el segundo valor son los headers aqui se define el tipo de contenido que se va a poner por lo general se usa 'Content-Type': 'application/json'
+    headers:{'Content-Type': 'application/json'},
+    //el tercero es el body, si se va a usar un json se tiene que usar JSON.stringify({}) para convertir a json 
+    body:JSON.stringify({mokepon:mokeponSeleccionado})
+    })
+}
 const ataqueEnemigo=()=>{
     while(ataquesDeMokeponEnemigo.length>0){
         const azar=()=>{

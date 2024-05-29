@@ -7,6 +7,7 @@ const app=express()
 const port=8080
 //se va a importar la libreria cors la cual sirve para permitir que el servidor sea accedido desde cualquier parte
 const cors=require('cors')
+const { application } = require('express')
 
 //se usa la libreria cors para de esta forma permitir que el servidor sea accedido desde cualquier parte
 // y no solo desde la maquina donde se esta ejecutando el servido
@@ -46,6 +47,18 @@ app.get('/jugador',(req,res)=>{
 //crear una pagina en la que se muestre la lista de jugadores
 app.get('/jugadores',(req, res)=>{
     res.send(jugadores)
+})
+
+// se va a crear una ruta para el servidor para post en el que se tenga el id del jugador como parametro en la url 
+app.post('/mokepon/:idJugador',(req,res)=>{
+    //para acceder al id del jugador desde la url usa params se usa req.params.idJugador
+    const idJugador=req.params.idJugador
+    //se imprime en la consola el id del jugador obtenido para comprobar que si se hizo de manera correcta
+    console.log(idJugador)
+    //se imprime todos los jugadores guardados en la lista
+    console.log(jugadores)
+    //estos datos los obtendremos a partir del archivo de front end despues de elegir nuestra mascota
+    res.end()
 })
 
 //para ejecutar el servidor es necesario poner el metodo listen
