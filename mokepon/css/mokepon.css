@@ -284,6 +284,18 @@ se agrega una nueva función cuando boton ya hizo click
 }
 
 
+/* se va definir el id de la seccion del mapa*/
+#mapa_canvas{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#mapa{
+    border: 2px solid white;
+}
+
 /* si queremos que la ubicacion de los elementos se mueva dependiendo del tamaño 
 de pantallas se usa @media con ella vamos a poner el limite maximo con el que 
 queremos que se hagan las modificaciones de los elementos*/

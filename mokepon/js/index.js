@@ -7,7 +7,6 @@ const app=express()
 const port=8080
 //se va a importar la libreria cors la cual sirve para permitir que el servidor sea accedido desde cualquier parte
 const cors=require('cors')
-const { application } = require('express')
 
 //se usa la libreria cors para de esta forma permitir que el servidor sea accedido desde cualquier parte
 // y no solo desde la maquina donde se esta ejecutando el servido
@@ -24,9 +23,26 @@ const jugadores=[]
 //generar un constructor de clase que guarde el id de cada jugador 
 class Jugador{
     constructor(id){
-    this.id=id
+    this.id=id}
+    //se genera una funcion en la que se guarde el nombre del mokepon que se envio
+    pokemonEnviado(mokepon){
+        this.mokepon=mokepon
+    }
 }
+
+
+/*ahora que ya se tiene el id se tiene que ligar el mokepon seleccionado con el id que se nos dio
+para eso es necesario crear una nueva clase llamada mokepon en la que se guarde el nombre del mokepon 
+y en la clase existente agregar una funcion que guarde el nombre del mokepon que se envio
+*/
+
+class Mokepon{
+    constructor(nombre){
+        this.nombre=nombre
+    }
 }
+
+
 //hacer una pagina llamada jugador get que de un valor random y que se guarde en la lista de jugador
 //el id debe de guardarse como un string no como un numero por lo que se tiene que usar `${}`
 app.get('/jugador',(req,res)=>{
@@ -53,8 +69,21 @@ app.get('/jugadores',(req, res)=>{
 app.post('/mokepon/:idJugador',(req,res)=>{
     //para acceder al id del jugador desde la url usa params se usa req.params.idJugador
     const idJugador=req.params.idJugador
-    //se imprime en la consola el id del jugador obtenido para comprobar que si se hizo de manera correcta
-    console.log(idJugador)
+    //se obtiene el mokepon que se envio en el body de la peticion {}
+    const nombre=req.body.mokepon
+    //se genera un nuevo objeto de la clase mokepon con el nombre del mokepon que se envio en el body de la peticion
+    let mokepon=new Mokepon(nombre)
+    //se va a buscar la posición del id en la que se guardo en la lista jugadores para que a ese 
+    //id se le asigne el nombre del mokepon que se envio en el body de la peticion
+    //para eso primero se busca el indice del id en la lista jugadores y se define como indiceId
+    let indiceId=jugadores.findIndex(indice=>indice.id===idJugador)
+    //si es que el id esta en la lista tiene que enviar un numero igual o mayor a cero 
+    //por lo tanto podemos saber cual es el id 
+    if(indiceId>=0){
+        //se agrega el nombre del mokepon al jugador en la posicion indiceId
+        jugadores[indiceId].pokemonEnviado(mokepon)
+    }
+
     //se imprime todos los jugadores guardados en la lista
     console.log(jugadores)
     //estos datos los obtendremos a partir del archivo de front end despues de elegir nuestra mascota

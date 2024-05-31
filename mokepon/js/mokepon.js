@@ -14,7 +14,9 @@ const seccionMarcador=document.getElementById('marcador')
 const seccionMensajes=document.getElementById('mensajes')
 const seccionReiniciar=document.getElementById('reiniciar')
 const seccionAtaqueEnemigo=document.getElementById('ataque_enemigo')
-
+//no se habia creado la variable para la seccion caja_mensaje. 
+const seccionCajaMensaje=document.getElementById('caja_mensaje')
+//se define la variable para el boton de ataque
 //se selecciona la seccion completa de seleccion mascota
 const seccionSelccionMascota=document.getElementById('seleccion_mascota')
 //para seleccionar los elementos que se guardaron en el html por nombre de 
@@ -45,6 +47,16 @@ const divContrincante=document.getElementById('contrincante')
 const divJugador1=document.getElementById('jugador1')
 
 const seccionMensajeganador=document.getElementById('mensaje_ganador')
+
+
+//con el canvas creado en html aqui vamos a definir ese elemento 
+const seccionMapaCanvas=document.getElementById('mapa_canvas')
+//tambien se define el elemento canvas con el id mapa
+const mapa=document.getElementById('mapa')
+//se tiene que definir una variable para tener el contexto del canvas
+//con esto podemos dibujar sobre el canvas
+const lienzo=mapa.getContext('2d')
+
 
 /*para poder agregar de forma sistematica primero se crea un constructor de clases como el que se
 se genero mas abajo, luego se van agregando los mokepones de forma manual de acuerdo a las caracteristicas
@@ -219,6 +231,9 @@ const iniciarJuego=()=>{
 
     })
 
+    //al iniciar el juego queremos que no sea vea aun la seccion del mapa por lo que tenemos que esconderal 
+    seccionMapaCanvas.style.display='none'
+
 }
 
 //se debe de generar una funcion en la que se indique que debe de hacer el boton
@@ -255,7 +270,18 @@ const seleccionDeMascota=()=>{
     }else{
         alert('selecciona uno')
     }
-    seccionSeleccionAtaque.style.display='flex'
+
+    //se esconde momentaneamente la seccion de seleccion de ataque y la caja de mensajes
+    //y se muestra la del mapa
+    seccionCajaMensaje.style.display='none'
+    seccionMapaCanvas.style.display='flex' 
+    //en esta nueva sección vamos a empezar a trabajar con nuestro lienzo 
+    //por ejemplo para poner un rectangulo dentro del canvas en la posicón 5,15 que sea 
+    //20 pix de ancho y 40 px de alto   
+    lienzo.fillRect(5,15,20,40)
+    
+
+    //seccionSeleccionAtaque.style.display='flex'
     seccionSelccionMascota.style.display='none'
 
     //aqui se va a llamar la funcion enviarMascota() que se encarga de enviar el nombre de la mascota al servidor
@@ -276,8 +302,8 @@ const seleccionDeMascota=()=>{
         //ahora insertamos el nombre del enemigo seleccionado al azar en span con el id mascota_enemigo
         //primero se seleccionar el elemento
         mascotaEnemigo.innerHTML=enemigo_azar()   
-        //poner que aparezca la seccion batalla
-        seccionAtaqueEnemigo.style.display='block'
+        //se esconde momentaneamente la seccion del ataque enemigo 
+        seccionAtaqueEnemigo.style.display='none'
         nombreJugador1.style.display='flex'
         nombreContrincante.style.display='flex'
     }
