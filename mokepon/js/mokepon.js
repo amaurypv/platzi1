@@ -93,6 +93,8 @@ let ataqueJugador1
 let ataqueContrincante
 
 let idJugador=null
+
+//se define el boton mover izquierda del canvas
 //se va a generar una clase llamada Mokepon que nos genere mokepones que debe de contener
 //nombre, imagen del mokepon que se toma desde el html y vidas
 //se va a agregar tambien un campo para ataques que contenga un array
@@ -102,6 +104,13 @@ class Mokepon{
         this.imagen=imagen
         this.vidas=vidas
         this.ataques=[]
+        //se agregan datos para las imagenes en canvas
+        this.x=10 
+        this.y=10
+        this.ancho=80
+        this.alto=80
+        this.imagenCanvas=new Image //es importante generar el objeto imagen que es de donde va agarrar la imagen
+        this.imagenCanvas.src=imagen
     }
 }
 
@@ -278,8 +287,25 @@ const seleccionDeMascota=()=>{
     //en esta nueva sección vamos a empezar a trabajar con nuestro lienzo 
     //por ejemplo para poner un rectangulo dentro del canvas en la posicón 5,15 que sea 
     //20 pix de ancho y 40 px de alto   
-    lienzo.fillRect(5,15,20,40)
-    
+    //lienzo.fillRect(5,15,20,40)
+
+//    se puede poner la imagen que seleccionemos usando una clase llamada Image y depsues seleccionar la imagen con.src
+    // let imagenCapipepo=new Image()
+    // imagenCapipepo.src=ratiguya.imagen
+    // lienzo.drawImage( //drawImage es para insertar una imagen en canvas
+    //     imagenCapipepo, //se selecciona primero la fuente de la imagen 
+    //     90,  //posicion en x que va aparecer
+    //     50, //posicion en y que s va aparecer
+    //     80, //el largo de la imagen
+    //     80 // el ancho de la imagen 
+    // )
+
+   insertarImagenCanvas(ratiguya)
+
+
+
+
+
 
     //seccionSeleccionAtaque.style.display='flex'
     seccionSelccionMascota.style.display='none'
@@ -584,6 +610,40 @@ const batalla=()=>{
 
 const reiniciarjuego=()=>{
     location.reload()
+}
+
+//se va generar una funcion para insertar una imagen en el canvas
+function insertarImagenCanvas(mokepon){
+    //para que se mueva la imagen sin dejar rastro de la imagen anterior se tiene que borrar 
+    lienzo.clearRect(0, 0, mapa.width, mapa.height) //se limpia todo el canvas
+    lienzo.drawImage(
+        mokepon.imagenCanvas,
+        mokepon.x,
+        mokepon.y,
+        mokepon.ancho,
+        mokepon.alto
+    )
+}
+
+//se agrega la funcion que se indica en html moverDerecha
+function moverDerecha (){
+    ratiguya.x=ratiguya.x+5
+    insertarImagenCanvas(ratiguya)
+}
+//se agrega la funcion que se indica en html moverArriba
+function moverArriba(){
+    ratiguya.y=ratiguya.y - 5
+    insertarImagenCanvas(ratiguya)
+}
+//se agrega la funcion que se indica en html moverIzquierda
+function moverIzquierda(){
+    ratiguya.x=ratiguya.x-5
+    insertarImagenCanvas(ratiguya)
+}
+//se agrega la funcion que se indica en html moverAbajo
+function moverAbajo(){
+    ratiguya.y=ratiguya.y+5
+    insertarImagenCanvas(ratiguya)
 }
 
 //es la funcion que se se debe de poner para que nos indique que se debe de hacer en todo el 

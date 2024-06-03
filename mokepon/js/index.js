@@ -89,7 +89,7 @@ app.post('/mokepon/:idJugador',(req,res)=>{
     //estos datos los obtendremos a partir del archivo de front end despues de elegir nuestra mascota
     res.end()
 })
-
+    
 //para ejecutar el servidor es necesario poner el metodo listen
 app.listen(port,()=>{
     console.log(`Escuchando en el puerto ${port}`)

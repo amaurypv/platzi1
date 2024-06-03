@@ -39,6 +39,13 @@
         <!-- se tiene que abrir un nuevo elemento que se llama canvas que es el
         encargado de generar el plano x y y -->
         <canvas id="mapa"></canvas>
+        <!--se van a agregar botones para mover la imagen-->
+        <button id='botonesDesplazamiento'onclick="moverArriba()">⬆️</button>
+        <div id="botones_horizontales">
+            <button id='botonesDesplazamiento' onclick="moverIzquierda()">⬅️</button>
+            <button id='botonesDesplazamiento' onclick="moverDerecha()">➡️</button>
+        </div>
+        <button id='botonesDesplazamiento' onclick="moverAbajo()">⬇️</button>
         
     </section>
     <!-- cuando se quiere que alguna palabra sea dinámica se usa span y se debe
