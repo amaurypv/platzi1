@@ -103,35 +103,53 @@ fondoCanva.src='./assets/mokemap.png'
 //se va a generar una clase llamada Mokepon que nos genere mokepones que debe de contener
 //nombre, imagen del mokepon que se toma desde el html y vidas
 //se va a agregar tambien un campo para ataques que contenga un array
+//para agregar enemigos al canvas, va a ser necesario modificar la clase y poner que se agregen los valores de x,y y la cara del mokepon
 class Mokepon{
-    constructor(nombre,imagen,vidas){
+    constructor(nombre,imagen,vidas,caramokepon, x=10,y=10){
         this.nombre=nombre
         this.imagen=imagen
         this.vidas=vidas
         this.ataques=[]
         //se agregan datos para las imagenes en canvas
-        this.x=10 
-        this.y=10
+        this.x=x 
+        this.y=y
         this.ancho=80
         this.alto=80
-        this.imagenCanvas=new Image //es importante generar el objeto imagen que es de donde va agarrar la imagen
-        this.imagenCanvas.src=imagen
+        this.imagenCanvas=new Image() //es importante generar el objeto imagen que es de donde va agarrar la imagen
+        this.imagenCanvas.src=caramokepon
         //se va agregar una velocidad a los movimientos cuando el mouse se mantenga clickeado
         this.velocidadx=0
         this.velocidady=0
+        //se va a agregar una funcion para agregar la cara del mokepon al canvas
+        }
+        insertarcara(){
+            lienzo.drawImage(
+                this.imagenCanvas,
+                this.x,
+                this.y,
+                this.ancho,
+                this.alto
+            )
+        }
     }
-}
+
 
 //ya que generamos la clase ahora vamos a generar un objeto con el nombre de cada uno de los 
 //mokepones que tenemos en html 
-let hipodoge=new Mokepon('hipodoge', './assets/mokepons_mokepon_hipodoge_attack.webp',5)
+let hipodoge=new Mokepon('hipodoge', './assets/mokepons_mokepon_hipodoge_attack.webp',5,'./assets/carahipodoge.png')
 //para comprobar si se guardo de forma correcta se puede enviar un console.log
 //console.log(hipodoge)
-let capipepo=new Mokepon('capipepo', './assets/mokepons_mokepon_capipepo_attack.webp',5)
-let ratiguya=new Mokepon('ratiguya', './assets/mokepons_mokepon_ratigueya_attack.webp', 5)
+
+let capipepo=new Mokepon('capipepo', './assets/mokepons_mokepon_capipepo_attack.webp',5,'./assets/caracapipepo.png') //se va a modificar la cara de los mokepon para el canvas
+let ratiguya=new Mokepon('ratiguya', './assets/mokepons_mokepon_ratigueya_attack.webp', 5,'./assets/cararatigueya.png')
 let langostelvis=new Mokepon('langostelvis', './assets/Corphish-Pokemon-PNG.png', 5)
 let tucapalma=new Mokepon('tucapalma', './assets/y3s277X.png',5)
 let pydos=new Mokepon('pydos', './assets/Artwork_Charizard_UNITE.png', 5)
+//se van a insertar los mokepones enemigos
+let hipodogeEnemigo=new Mokepon('hipodoge', './assets/mokepons_mokepon_hipodoge_attack.webp',5,'./assets/carahipodoge.png',500,200)
+let capipepoEnemigo=new Mokepon('capipepo', './assets/mokepons_mokepon_capipepo_attack.webp',5,'./assets/caracapipepo.png',330,100) //se va a modificar la cara de los mokepon para el canvas
+let ratiguyaEnemigo=new Mokepon('ratiguya', './assets/mokepons_mokepon_ratigueya_attack.webp', 5,'./assets/cararatigueya.png',200,300)
+
 
 //se va a agregar de manera manual los ataques a cada uno de los mokepones
 //hipodoge es de agua por eso debe de tener 3 ataques de agua
@@ -635,13 +653,13 @@ function pintarCanvas(mokepon){
         0,
         mapa.width,
         mapa.height)
-    lienzo.drawImage(
-        mokepon.imagenCanvas,
-        mokepon.x,
-        mokepon.y,
-        mokepon.ancho,
-        mokepon.alto
-    )
+    //se va a modificar la forma de insertar la cara del mokepon al canvas usando una funcion dentro de la clase
+    mokepon.insertarcara()
+    //se insertan los enemigos 
+    hipodogeEnemigo.insertarcara()
+    capipepoEnemigo.insertarcara()
+    ratiguyaEnemigo.insertarcara()
+    
 }
 
 //se agrega la funcion que se indica en html moverDerecha
