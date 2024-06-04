@@ -94,6 +94,10 @@ let ataqueContrincante
 
 let idJugador=null
 
+
+//se define la funcion que se va a llamar cuando se presione una tecla
+
+
 //se define el boton mover izquierda del canvas
 //se va a generar una clase llamada Mokepon que nos genere mokepones que debe de contener
 //nombre, imagen del mokepon que se toma desde el html y vidas
@@ -111,6 +115,9 @@ class Mokepon{
         this.alto=80
         this.imagenCanvas=new Image //es importante generar el objeto imagen que es de donde va agarrar la imagen
         this.imagenCanvas.src=imagen
+        //se va agregar una velocidad a los movimientos cuando el mouse se mantenga clickeado
+        this.velocidadx=0
+        this.velocidady=0
     }
 }
 
@@ -284,6 +291,13 @@ const seleccionDeMascota=()=>{
     //y se muestra la del mapa
     seccionCajaMensaje.style.display='none'
     seccionMapaCanvas.style.display='flex' 
+
+
+    //se va agregar un addeventlistener en toda la ventana que nos indique que tecla fue la que se presiono 
+    window.addEventListener('keydown',teclaAbajo)
+    // y otra funcion para cuando se deja de presionar la tecla
+    window.addEventListener('keyup', detenerMov)
+
     //en esta nueva sección vamos a empezar a trabajar con nuestro lienzo 
     //por ejemplo para poner un rectangulo dentro del canvas en la posicón 5,15 que sea 
     //20 pix de ancho y 40 px de alto   
@@ -627,6 +641,8 @@ function insertarImagenCanvas(mokepon){
 
 //se agrega la funcion que se indica en html moverDerecha
 function moverDerecha (){
+    //se va agregar una velocidad y se va a quitar insertar imagen ya que queremos que solo sea una vez que 
+    //agregue el dibujo en el canvas
     ratiguya.x=ratiguya.x+5
     insertarImagenCanvas(ratiguya)
 }
@@ -646,6 +662,30 @@ function moverAbajo(){
     insertarImagenCanvas(ratiguya)
 }
 
+//se van a definir las funciones para que nos imprima que tecla se esta presionando 
+function teclaAbajo(event){
+     switch (event.key) {
+        case 'ArrowDown':
+            moverAbajo()
+            break;
+        case 'ArrowUp':
+            moverArriba()
+            break;
+        case 'ArrowLeft':
+            moverIzquierda()
+            break;
+        case 'ArrowRight':
+            moverDerecha()
+            break;
+
+        default:
+            break;
+     } 
+}
+
+
+function detenerMov(){
+}
 //es la funcion que se se debe de poner para que nos indique que se debe de hacer en todo el 
 //documento html 
 
