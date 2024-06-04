@@ -95,8 +95,9 @@ let ataqueContrincante
 let idJugador=null
 
 
-//se define la funcion que se va a llamar cuando se presione una tecla
-
+//se va a definir la ubicacion de la imagen de fondo del canvas
+const fondoCanva= new Image()
+fondoCanva.src='./assets/mokemap.png'
 
 //se define el boton mover izquierda del canvas
 //se va a generar una clase llamada Mokepon que nos genere mokepones que debe de contener
@@ -291,12 +292,9 @@ const seleccionDeMascota=()=>{
     //y se muestra la del mapa
     seccionCajaMensaje.style.display='none'
     seccionMapaCanvas.style.display='flex' 
+    console.log(objetoMokeponSeleccionado())
 
-
-    //se va agregar un addeventlistener en toda la ventana que nos indique que tecla fue la que se presiono 
-    window.addEventListener('keydown',teclaAbajo)
-    // y otra funcion para cuando se deja de presionar la tecla
-    window.addEventListener('keyup', detenerMov)
+    accionesDeJuego()
 
     //en esta nueva sección vamos a empezar a trabajar con nuestro lienzo 
     //por ejemplo para poner un rectangulo dentro del canvas en la posicón 5,15 que sea 
@@ -314,7 +312,7 @@ const seleccionDeMascota=()=>{
     //     80 // el ancho de la imagen 
     // )
 
-   insertarImagenCanvas(ratiguya)
+   pintarCanvas(ratiguya)
 
 
 
@@ -627,9 +625,17 @@ const reiniciarjuego=()=>{
 }
 
 //se va generar una funcion para insertar una imagen en el canvas
-function insertarImagenCanvas(mokepon){
+function pintarCanvas(mokepon){
     //para que se mueva la imagen sin dejar rastro de la imagen anterior se tiene que borrar 
     lienzo.clearRect(0, 0, mapa.width, mapa.height) //se limpia todo el canvas
+    //se insertara la imagen de fondo por lo que es necesario hacer otro drawImage pero ahora definiendo 
+    //la imagen, que empieze desde 0 en x asi como en y, y de ancho y alto que sea igual al mapa
+    lienzo.drawImage(
+        fondoCanva,
+        0,
+        0,
+        mapa.width,
+        mapa.height)
     lienzo.drawImage(
         mokepon.imagenCanvas,
         mokepon.x,
@@ -644,22 +650,22 @@ function moverDerecha (){
     //se va agregar una velocidad y se va a quitar insertar imagen ya que queremos que solo sea una vez que 
     //agregue el dibujo en el canvas
     ratiguya.x=ratiguya.x+5
-    insertarImagenCanvas(ratiguya)
+    pintarCanvas(ratiguya)
 }
 //se agrega la funcion que se indica en html moverArriba
 function moverArriba(){
     ratiguya.y=ratiguya.y - 5
-    insertarImagenCanvas(ratiguya)
+    pintarCanvas(ratiguya)
 }
 //se agrega la funcion que se indica en html moverIzquierda
 function moverIzquierda(){
     ratiguya.x=ratiguya.x-5
-    insertarImagenCanvas(ratiguya)
+    pintarCanvas(ratiguya)
 }
 //se agrega la funcion que se indica en html moverAbajo
 function moverAbajo(){
     ratiguya.y=ratiguya.y+5
-    insertarImagenCanvas(ratiguya)
+    pintarCanvas(ratiguya)
 }
 
 //se van a definir las funciones para que nos imprima que tecla se esta presionando 
@@ -667,20 +673,33 @@ function teclaAbajo(event){
      switch (event.key) {
         case 'ArrowDown':
             moverAbajo()
-            break;
+            break
         case 'ArrowUp':
             moverArriba()
-            break;
+            break
         case 'ArrowLeft':
             moverIzquierda()
-            break;
+            break
         case 'ArrowRight':
             moverDerecha()
-            break;
+            break
 
         default:
             break;
      } 
+}
+
+
+//se va a definir la funcion de los eventlistener para dejarlos todos afuera asi como el tamaño del mapa se va a agrandar
+function accionesDeJuego(){
+    //se va ampliar el area del mapa
+    mapa.width=600
+    mapa.height=500
+     //se va agregar un addeventlistener en toda la ventana que nos indique que tecla fue la que se presiono 
+     window.addEventListener('keydown',teclaAbajo)
+     // y otra funcion para cuando se deja de presionar la tecla
+     window.addEventListener('keyup', detenerMov)
+     
 }
 
 
