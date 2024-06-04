@@ -292,8 +292,7 @@ const seleccionDeMascota=()=>{
     //y se muestra la del mapa
     seccionCajaMensaje.style.display='none'
     seccionMapaCanvas.style.display='flex' 
-    console.log(objetoMokeponSeleccionado())
-
+    
     accionesDeJuego()
 
     //en esta nueva sección vamos a empezar a trabajar con nuestro lienzo 
@@ -312,7 +311,7 @@ const seleccionDeMascota=()=>{
     //     80 // el ancho de la imagen 
     // )
 
-   pintarCanvas(ratiguya)
+   pintarCanvas(objetoMokeponSeleccionado())
 
 
 
@@ -649,23 +648,23 @@ function pintarCanvas(mokepon){
 function moverDerecha (){
     //se va agregar una velocidad y se va a quitar insertar imagen ya que queremos que solo sea una vez que 
     //agregue el dibujo en el canvas
-    ratiguya.x=ratiguya.x+5
-    pintarCanvas(ratiguya)
+    objetoMokeponSeleccionado().x=objetoMokeponSeleccionado().x+5
+    pintarCanvas(objetoMokeponSeleccionado())
 }
 //se agrega la funcion que se indica en html moverArriba
 function moverArriba(){
-    ratiguya.y=ratiguya.y - 5
-    pintarCanvas(ratiguya)
+    objetoMokeponSeleccionado().y=objetoMokeponSeleccionado().y - 5
+    pintarCanvas(objetoMokeponSeleccionado())
 }
 //se agrega la funcion que se indica en html moverIzquierda
 function moverIzquierda(){
-    ratiguya.x=ratiguya.x-5
-    pintarCanvas(ratiguya)
+    objetoMokeponSeleccionado().x=objetoMokeponSeleccionado().x-5
+    pintarCanvas(objetoMokeponSeleccionado())
 }
 //se agrega la funcion que se indica en html moverAbajo
 function moverAbajo(){
-    ratiguya.y=ratiguya.y+5
-    pintarCanvas(ratiguya)
+    objetoMokeponSeleccionado().y=objetoMokeponSeleccionado().y+5
+    pintarCanvas(objetoMokeponSeleccionado())
 }
 
 //se van a definir las funciones para que nos imprima que tecla se esta presionando 
@@ -702,6 +701,14 @@ function accionesDeJuego(){
      
 }
 
+//se va hacer una funcion para que devuelva el objeto del mokepon que se selccionó 
+function objetoMokeponSeleccionado(){
+    for(let i=0;i<mokepones.length;i++){
+        if(mokepones[i].nombre==mokeponSeleccionado){
+            return mokepones[i]
+        }
+    }
+}
 
 function detenerMov(){
 }
