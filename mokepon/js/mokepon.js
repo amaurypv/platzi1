@@ -396,7 +396,10 @@ const seleccionDeMascota=()=>{
     mokepones.forEach((mokepon)=>{
         if(mokepon.nombre===mascotaEnemigoSeleccionadaAzar){
             ataquesDeMokeponEnemigo=mokepon.ataques
-        }        
+        }else{
+            console.log('no hay ataques')
+        }
+        
     })
     
     /* con las funciones que se pusieron, si se agregan los botones, pero los dos de en medio no tienen accion 
@@ -596,7 +599,6 @@ const batalla=()=>{
         spanVidasEnemigo.innerHTML=vidasEnemigo
         seccionReiniciar.style.display='flex'
         botonBatalla.disabled=true
-        
 
         if(misVidas>vidasEnemigo){
             let nuevoMensaje=document.createElement('p')
@@ -795,6 +797,7 @@ function revisarColision(enemigo){
     //seccionAtaqueEnemigo.style.display='none'
     nombreJugador1.style.display='flex'
     nombreContrincante.style.display='flex'
+
 }
 
 function detenerMov(){
