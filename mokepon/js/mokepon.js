@@ -358,7 +358,7 @@ const seleccionDeMascota=()=>{
         //primero se seleccionar el elemento
         mascotaEnemigo.innerHTML=enemigo_azar()   
         //se esconde momentaneamente la seccion del ataque enemigo 
-        seccionAtaqueEnemigo.style.display='none'
+        //seccionAtaqueEnemigo.style.display='none'
         nombreJugador1.style.display='flex'
         nombreContrincante.style.display='flex'
     }
@@ -668,21 +668,41 @@ function moverDerecha (){
     //agregue el dibujo en el canvas
     objetoMokeponSeleccionado().x=objetoMokeponSeleccionado().x+5
     pintarCanvas(objetoMokeponSeleccionado())
+    //cada vez que se mueva el mokepn revisar si hay colisión con algun enemigo
+    revisarColision(capipepoEnemigo)
+    revisarColision(ratiguyaEnemigo)
+    revisarColision(hipodogeEnemigo)
+    
 }
 //se agrega la funcion que se indica en html moverArriba
 function moverArriba(){
     objetoMokeponSeleccionado().y=objetoMokeponSeleccionado().y - 5
     pintarCanvas(objetoMokeponSeleccionado())
+       //cada vez que se mueva el mokepn revisar si hay colisión con algun enemigo
+    revisarColision(capipepoEnemigo)
+    revisarColision(ratiguyaEnemigo)
+    revisarColision(hipodogeEnemigo)
+    
 }
 //se agrega la funcion que se indica en html moverIzquierda
 function moverIzquierda(){
     objetoMokeponSeleccionado().x=objetoMokeponSeleccionado().x-5
     pintarCanvas(objetoMokeponSeleccionado())
+    //cada vez que se mueva el mokepn revisar si hay colisión con algun enemigo
+    revisarColision(capipepoEnemigo)
+    revisarColision(ratiguyaEnemigo)
+    revisarColision(hipodogeEnemigo)
+    
 }
 //se agrega la funcion que se indica en html moverAbajo
 function moverAbajo(){
     objetoMokeponSeleccionado().y=objetoMokeponSeleccionado().y+5
     pintarCanvas(objetoMokeponSeleccionado())
+    //cada vez que se mueva el mokepn revisar si hay colisión con algun enemigo
+    revisarColision(capipepoEnemigo)
+    revisarColision(ratiguyaEnemigo)
+    revisarColision(hipodogeEnemigo)
+    
 }
 
 //se van a definir las funciones para que nos imprima que tecla se esta presionando 
@@ -726,6 +746,35 @@ function objetoMokeponSeleccionado(){
             return mokepones[i]
         }
     }
+}
+
+//para revisar si hay colisión es necesario revisar algunas condiciones con las posiciones entre los mokepones
+
+function revisarColision(enemigo){
+    const mokeponAbajo=objetoMokeponSeleccionado().y+objetoMokeponSeleccionado().alto
+    const mokeponArriba=objetoMokeponSeleccionado().y
+    const mokeponDerecha=objetoMokeponSeleccionado().x+objetoMokeponSeleccionado().ancho
+    const mokeponIzquierda=objetoMokeponSeleccionado().x
+
+    const enemigoAbajo=enemigo.y+enemigo.alto
+    const enemigoArriba=enemigo.y
+    const enemigoDerecha=enemigo.x+enemigo.ancho
+    const enemigoIzquierda=enemigo.x
+
+    if(
+        mokeponAbajo<enemigoArriba||
+        mokeponArriba>enemigoAbajo||
+        mokeponDerecha<enemigoIzquierda||
+        mokeponIzquierda>enemigoDerecha
+    ){
+        return
+    }
+    seccionAtaqueEnemigo.style.display='flex'
+    seccionSeleccionAtaque.style.display='flex'
+    seccionCajaMensaje.style.display='flex'
+    seccionMapaCanvas.style.display='none'
+
+
 }
 
 function detenerMov(){

@@ -179,7 +179,7 @@ se agrega una nueva función cuando boton ya hizo click
     margin: 20px;
 }
 
-#ataque_enemigo div{
+#ataque_enemigo {
     display: flex;
     justify-content: center;
 }
