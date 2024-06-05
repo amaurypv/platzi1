@@ -146,7 +146,7 @@ let langostelvis=new Mokepon('langostelvis', './assets/Corphish-Pokemon-PNG.png'
 let tucapalma=new Mokepon('tucapalma', './assets/y3s277X.png',5)
 let pydos=new Mokepon('pydos', './assets/Artwork_Charizard_UNITE.png', 5)
 //se van a insertar los mokepones enemigos
-let hipodogeEnemigo=new Mokepon('hipodoge', './assets/mokepons_mokepon_hipodoge_attack.webp',5,'./assets/carahipodoge.png',500,200)
+let hipodogeEnemigo=new Mokepon('hipodoge', './assets/mokepons_mokepon_hipodoge_attack.webp',5,'./assets/carahipodoge.png',50,200)
 let capipepoEnemigo=new Mokepon('capipepo', './assets/mokepons_mokepon_capipepo_attack.webp',5,'./assets/caracapipepo.png',330,100) //se va a modificar la cara de los mokepon para el canvas
 let ratiguyaEnemigo=new Mokepon('ratiguya', './assets/mokepons_mokepon_ratigueya_attack.webp', 5,'./assets/cararatigueya.png',200,300)
 
@@ -154,6 +154,17 @@ let ratiguyaEnemigo=new Mokepon('ratiguya', './assets/mokepons_mokepon_ratigueya
 //se va a agregar de manera manual los ataques a cada uno de los mokepones
 //hipodoge es de agua por eso debe de tener 3 ataques de agua
 hipodoge.ataques.push(
+    {nombre:'💧', id:'boton_agua'},  //se pone como id, el id del boton con que se identifico el ataque
+    {nombre:'💧', id:'boton_agua'},
+    {nombre:'💧', id:'boton_agua'},
+    {nombre:'🔥', id:'boton_fuego'},
+    {nombre:'🌿', id:'boton_tierra'}
+)
+
+//se van a agregar los ataques para la clase de enemigo, que es de donde se van a tomar los ataques para los enemigos
+//pero es necesario agregarlos como las clases que no eran enemigos
+
+hipodogeEnemigo.ataques.push(
     {nombre:'💧', id:'boton_agua'},  //se pone como id, el id del boton con que se identifico el ataque
     {nombre:'💧', id:'boton_agua'},
     {nombre:'💧', id:'boton_agua'},
@@ -169,7 +180,23 @@ capipepo.ataques.push(
     {nombre:'🔥', id:'boton_fuego'},
 )
 
+capipepoEnemigo.ataques.push(
+    {nombre:'🌿', id:'boton_tierra'},
+    {nombre:'🌿', id:'boton_tierra'},
+    {nombre:'🌿', id:'boton_tierra'},
+    {nombre:'💧', id:'boton_agua'},
+    {nombre:'🔥', id:'boton_fuego'},
+)
+
 ratiguya.ataques.push(
+    {nombre:'🔥', id:'boton_fuego'},
+    {nombre:'🔥', id:'boton_fuego'},
+    {nombre:'🔥', id:'boton_fuego'},
+    {nombre:'🌿', id:'boton_tierra'},
+    {nombre:'💧', id:'boton_agua'},
+)
+
+ratiguyaEnemigo.ataques.push(
     {nombre:'🔥', id:'boton_fuego'},
     {nombre:'🔥', id:'boton_fuego'},
     {nombre:'🔥', id:'boton_fuego'},
@@ -205,6 +232,8 @@ pydos.ataques.push(
 let mokepones=[]
 //solo se van a poner los 3 primeros mokepones, se borraron los ultimos 3 
 mokepones.push(hipodoge,capipepo,ratiguya)
+
+
 
 //se define una variable global llamada ataque jugador que va a cambiar su valor dependiendo del boton de ataque que se presione
 const iniciarJuego=()=>{
@@ -343,27 +372,10 @@ const seleccionDeMascota=()=>{
     enviarMascota(mokeponSeleccionado)
     //se va a seleccionar tambien el enemigo, pero este de forma aleatoria. 
 
-    const seleccionEnemigoAzar=()=>{
-        //se va a definir de forma automatica el enemigo al azar basado en 
-        //la lista de mokepones
-        const enemigo_azar=()=>{
-            const azar=()=>{
-                return  Math.floor(Math.random()*mokepones.length) //la formula es Math.floor(Math.random()*numero de elementos de la lista 
-            }
-            mascotaEnemigoSeleccionadaAzar= mokepones[azar()].nombre //se cambio para que de forma automatica indique el nombre
-                                            //del mokepon que contiene el objeto. ejemplo mokepon[0].nombre
-                return mascotaEnemigoSeleccionadaAzar
-        }
-        //ahora insertamos el nombre del enemigo seleccionado al azar en span con el id mascota_enemigo
-        //primero se seleccionar el elemento
-        mascotaEnemigo.innerHTML=enemigo_azar()   
-        //se esconde momentaneamente la seccion del ataque enemigo 
-        //seccionAtaqueEnemigo.style.display='none'
-        nombreJugador1.style.display='flex'
-        nombreContrincante.style.display='flex'
-    }
+    
+    //se elimina la seleccion al azar de los enemigos ya que el enemigo se va a seleccionar cuando se colisione con otro mokepon en el canvas
 
-    seleccionEnemigoAzar()
+
     /* para poner botones de ataque de forma automatica se hace el mismo procecidimiento que con las imagenes
     primero se hace un recorrido por todo el array de mokepones con foreach buscando el nombre
     del mokepon del array coincida con el del mokepon seleccionado
@@ -379,12 +391,12 @@ const seleccionDeMascota=()=>{
             ataquesDeMokepon=mokepon.ataques
         }
     })
-
+    
     // se selecciona los ataques de la mascota enemiga de acuerdo a su seleccion
     mokepones.forEach((mokepon)=>{
         if(mokepon.nombre===mascotaEnemigoSeleccionadaAzar){
             ataquesDeMokeponEnemigo=mokepon.ataques
-        }
+        }        
     })
     
     /* con las funciones que se pusieron, si se agregan los botones, pero los dos de en medio no tienen accion 
@@ -473,18 +485,18 @@ const enviarMascota=(mokeponSeleccionado)=>{
     })
 }
 const ataqueEnemigo=()=>{
-    while(ataquesDeMokeponEnemigo.length>0){
+    while(ataquesDeMokepon.length>0){
         const azar=()=>{
-            return  Math.floor(Math.random()*ataquesDeMokeponEnemigo.length) //la formula es Math.floor(Math.random()*numero de elementos de la lista 
+            return  Math.floor(Math.random()*ataquesDeMokepon.length) //la formula es Math.floor(Math.random()*numero de elementos de la lista 
         }
-        if(ataquesDeMokeponEnemigo[azar()].nombre=='🔥'){
+        if(ataquesDeMokepon[azar()].nombre=='🔥'){
             return 'Fuego'
-        }else if(ataquesDeMokeponEnemigo[azar()].nombre=='🌿'){
+        }else if(ataquesDeMokepon[azar()].nombre=='🌿'){
             return 'Tierra'
         }else{
             return 'Agua'
         }
-        ataquesDeMokeponEnemigo.splice(azar(),1)
+        ataquesDeMokepon.splice(azar(),1)
     }
 }
 
@@ -583,6 +595,8 @@ const batalla=()=>{
         spanMisVidas.innerHTML=misVidas
         spanVidasEnemigo.innerHTML=vidasEnemigo
         seccionReiniciar.style.display='flex'
+        botonBatalla.disabled=true
+        
 
         if(misVidas>vidasEnemigo){
             let nuevoMensaje=document.createElement('p')
@@ -769,12 +783,18 @@ function revisarColision(enemigo){
     ){
         return
     }
+
+    //en cuanto haya colisión con algun mokepon nos envia a la pantalla de batalla
     seccionAtaqueEnemigo.style.display='flex'
     seccionSeleccionAtaque.style.display='flex'
     seccionCajaMensaje.style.display='flex'
     seccionMapaCanvas.style.display='none'
-
-
+    mascotaEnemigoSeleccionadaAzar=enemigo.nombre 
+    mascotaEnemigo.innerHTML= mascotaEnemigoSeleccionadaAzar 
+    //se esconde momentaneamente la seccion del ataque enemigo 
+    //seccionAtaqueEnemigo.style.display='none'
+    nombreJugador1.style.display='flex'
+    nombreContrincante.style.display='flex'
 }
 
 function detenerMov(){
