@@ -361,10 +361,6 @@ const seleccionDeMascota=()=>{
    pintarCanvas(objetoMokeponSeleccionado())
 
 
-
-
-
-
     //seccionSeleccionAtaque.style.display='flex'
     seccionSelccionMascota.style.display='none'
 
@@ -487,6 +483,10 @@ const enviarMascota=(mokeponSeleccionado)=>{
     body:JSON.stringify({mokepon:mokeponSeleccionado})
     })
 }
+
+
+
+
 const ataqueEnemigo=()=>{
     while(ataquesDeMokepon.length>0){
         const azar=()=>{
@@ -669,13 +669,31 @@ function pintarCanvas(mokepon){
         0,
         mapa.width,
         mapa.height)
+//        enviarPosicion(mokepon)
     //se va a modificar la forma de insertar la cara del mokepon al canvas usando una funcion dentro de la clase
     mokepon.insertarcara()
+    enviarPosicion(mokepon.x,mokepon.y)
     //se insertan los enemigos 
     hipodogeEnemigo.insertarcara()
     capipepoEnemigo.insertarcara()
     ratiguyaEnemigo.insertarcara()
     
+}
+//se va a definir la funcion para que haga un fetch de un post y enviar las coordenadas.x y x 
+//la funcion se va a poner en la funcion pintarCanvas ya que cada vez que se ejecute es decir que se se mueva el mokepon envie las coordenadas
+function enviarPosicion(x,y){
+    fetch(`http://localhost:8080/mokepon/${idJugador}/posicion`,{ //se escribe la direccion basada en el metodo post de index.js
+        //se genera el segundo argumento con las caracteristicas de un metodo post
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            x,  // se pone x solita, es lo mismo que poner x:x
+            y // lo mismo que x
+        })
+    }
+    )
 }
 
 //se agrega la funcion que se indica en html moverDerecha
@@ -801,7 +819,10 @@ function revisarColision(enemigo){
 }
 
 function detenerMov(){
+
 }
+
+
 //es la funcion que se se debe de poner para que nos indique que se debe de hacer en todo el 
 //documento html 
 

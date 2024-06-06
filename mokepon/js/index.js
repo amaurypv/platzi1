@@ -23,13 +23,27 @@ const jugadores=[]
 //generar un constructor de clase que guarde el id de cada jugador 
 class Jugador{
     constructor(id){
-    this.id=id}
+    this.id=id
+    
+    }
     //se genera una funcion en la que se guarde el nombre del mokepon que se envio
     pokemonEnviado(mokepon){
         this.mokepon=mokepon
     }
+    //se genera una funcion en la que se guarde la posicion del jugador
+    actualizarPosicion(x, y){
+        this.x=x
+        this.y=y
+    }
+
 }
 
+class posicion{
+    constructor(x,y){
+        this.x=x
+        this.y=y
+    }
+}
 
 /*ahora que ya se tiene el id se tiene que ligar el mokepon seleccionado con el id que se nos dio
 para eso es necesario crear una nueva clase llamada mokepon en la que se guarde el nombre del mokepon 
@@ -80,7 +94,7 @@ app.post('/mokepon/:idJugador',(req,res)=>{
     //si es que el id esta en la lista tiene que enviar un numero igual o mayor a cero 
     //por lo tanto podemos saber cual es el id 
     if(indiceId>=0){
-        //se agrega el nombre del mokepon al jugador en la posicion indiceId
+        //se agrega el nombre del mokepon al jugador en la posicion indiceId,
         jugadores[indiceId].pokemonEnviado(mokepon)
     }
 
@@ -89,7 +103,19 @@ app.post('/mokepon/:idJugador',(req,res)=>{
     //estos datos los obtendremos a partir del archivo de front end despues de elegir nuestra mascota
     res.end()
 })
-    
+
+//se va a generar un nuevo endport en el que se conozca la ubucación del mokepon seleccionado.
+app.post('/mokepon/:idJugador/posicion',(req,res)=>{
+    const idJugador=req.params.idJugador
+    const x=req.body.x
+    const y=req.body.y
+    let indiceId=jugadores.findIndex(indice=>indice.id===idJugador)
+    if(indiceId>=0){
+        jugadores[indiceId].actualizarPosicion(x, y)
+    }
+    res.end()
+})
+
 //para ejecutar el servidor es necesario poner el metodo listen
 app.listen(port,()=>{
     console.log(`Escuchando en el puerto ${port}`)
