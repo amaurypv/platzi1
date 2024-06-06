@@ -106,14 +106,17 @@ app.post('/mokepon/:idJugador',(req,res)=>{
 
 //se va a generar un nuevo endport en el que se conozca la ubucación del mokepon seleccionado.
 app.post('/mokepon/:idJugador/posicion',(req,res)=>{
-    const idJugador=req.params.idJugador
-    const x=req.body.x
-    const y=req.body.y
-    let indiceId=jugadores.findIndex(indice=>indice.id===idJugador)
+    const idJugador=req.params.idJugador //se toma el valor de idjugador de la direccion 
+    const x=req.body.x //se toma el valor de x del body que se escribe en mokepon.js
+    const y=req.body.y //se toma el valor de x del body que se escribe en mokepon.js
+    let indiceId=jugadores.findIndex(indice=>indice.id===idJugador) //se busca el indice del id
     if(indiceId>=0){
-        jugadores[indiceId].actualizarPosicion(x, y)
+        jugadores[indiceId].actualizarPosicion(x, y)  //se agrega el valor de x y de y a jugadores. 
     }
-    res.end()
+    //ahora se va hacer una lista con los enemigos, es decir, todos los jugadoresid que hay en la lista, excepto el id 
+    const enemigos=jugadores.filter(jugador=>jugador.id!==idJugador)
+    res.send({enemigos})
+    
 })
 
 //para ejecutar el servidor es necesario poner el metodo listen
