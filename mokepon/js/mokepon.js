@@ -94,6 +94,9 @@ let ataqueContrincante
 
 let idJugador=null
 
+//se crea una nueva variable que va a ser el mokepon elegido por el enemigo. 
+let enemigoseleccionado=null
+
 
 //se va a definir la ubicacion de la imagen de fondo del canvas
 const fondoCanva= new Image()
@@ -104,12 +107,14 @@ fondoCanva.src='./assets/mokemap.png'
 //nombre, imagen del mokepon que se toma desde el html y vidas
 //se va a agregar tambien un campo para ataques que contenga un array
 //para agregar enemigos al canvas, va a ser necesario modificar la clase y poner que se agregen los valores de x,y y la cara del mokepon
+//se agrega el valor del id al constructor de clases.
 class Mokepon{
-    constructor(nombre,imagen,vidas,caramokepon, x=10,y=10){
+    constructor(nombre,imagen,vidas,caramokepon, x=10,y=10, id=null){
         this.nombre=nombre
         this.imagen=imagen
         this.vidas=vidas
         this.ataques=[]
+        this.id=id
         //se agregan datos para las imagenes en canvas
         this.x=x 
         this.y=y
@@ -145,88 +150,73 @@ let ratiguya=new Mokepon('ratiguya', './assets/mokepons_mokepon_ratigueya_attack
 let langostelvis=new Mokepon('langostelvis', './assets/Corphish-Pokemon-PNG.png', 5)
 let tucapalma=new Mokepon('tucapalma', './assets/y3s277X.png',5)
 let pydos=new Mokepon('pydos', './assets/Artwork_Charizard_UNITE.png', 5)
-//se van a insertar los mokepones enemigos
-let hipodogeEnemigo=new Mokepon('hipodoge', './assets/mokepons_mokepon_hipodoge_attack.webp',5,'./assets/carahipodoge.png',50,200)
-let capipepoEnemigo=new Mokepon('capipepo', './assets/mokepons_mokepon_capipepo_attack.webp',5,'./assets/caracapipepo.png',330,100) //se va a modificar la cara de los mokepon para el canvas
-let ratiguyaEnemigo=new Mokepon('ratiguya', './assets/mokepons_mokepon_ratigueya_attack.webp', 5,'./assets/cararatigueya.png',200,300)
+//para que los enemigos que aparezcan en linea, se tienen que reconocer por su nombre, como enemigo. 
+//por lo tanto se va a tener que borrar y generar solo los nombre de los mokepones
 
 
 //se va a agregar de manera manual los ataques a cada uno de los mokepones
 //hipodoge es de agua por eso debe de tener 3 ataques de agua
-hipodoge.ataques.push(
-    {nombre:'💧', id:'boton_agua'},  //se pone como id, el id del boton con que se identifico el ataque
-    {nombre:'💧', id:'boton_agua'},
-    {nombre:'💧', id:'boton_agua'},
-    {nombre:'🔥', id:'boton_fuego'},
-    {nombre:'🌿', id:'boton_tierra'}
-)
 
-//se van a agregar los ataques para la clase de enemigo, que es de donde se van a tomar los ataques para los enemigos
-//pero es necesario agregarlos como las clases que no eran enemigos
+//como ya no se van a considerar mokpones con el nombre enemigos. se van a cambiar la forma de agregar los ataques
+//se va a generar una variable con el nombre de los ataques de cada mokepon 
 
-hipodogeEnemigo.ataques.push(
-    {nombre:'💧', id:'boton_agua'},  //se pone como id, el id del boton con que se identifico el ataque
-    {nombre:'💧', id:'boton_agua'},
-    {nombre:'💧', id:'boton_agua'},
-    {nombre:'🔥', id:'boton_fuego'},
-    {nombre:'🌿', id:'boton_tierra'}
-)
+const ataques_hipodoge=[   
+{nombre:'💧', id:'boton_agua'},  //se pone como id, el id del boton con que se identifico el ataque
+{nombre:'💧', id:'boton_agua'},
+{nombre:'💧', id:'boton_agua'},
+{nombre:'🔥', id:'boton_fuego'},
+{nombre:'🌿', id:'boton_tierra'}]
+
+//para agregarse a los ataques de cada mokepon y no se agreguen en forma de lista se agrean con los tres puntos
+//para que haga un recorrido por toda la lista. 
+
+hipodoge.ataques.push(...ataques_hipodoge)
+//como ya no se va a considerar mokepones enemigos, se elimina los ataques de mokepon enemigos
+
+//se hace el mismo procedimiento con los ataques de capipeo
+const ataques_capipepo=[    
+{nombre:'🌿', id:'boton_tierra'},
+{nombre:'🌿', id:'boton_tierra'},
+{nombre:'🌿', id:'boton_tierra'},
+{nombre:'💧', id:'boton_agua'},
+{nombre:'🔥', id:'boton_fuego'},]
+
+
 //capipepo es de tierra, por lo que debe de tener 3 ataques de tierra
-capipepo.ataques.push(
-    {nombre:'🌿', id:'boton_tierra'},
-    {nombre:'🌿', id:'boton_tierra'},
-    {nombre:'🌿', id:'boton_tierra'},
-    {nombre:'💧', id:'boton_agua'},
-    {nombre:'🔥', id:'boton_fuego'},
-)
+capipepo.ataques.push(...ataques_capipepo)
+//se eliminan de igual forma los ataques de capipepo enemigo
+//se hace lo mismo con los ataques de ratiguya
+const ataques_ratiguya=[    
+{nombre:'🔥', id:'boton_fuego'},
+{nombre:'🔥', id:'boton_fuego'},
+{nombre:'🔥', id:'boton_fuego'},
+{nombre:'🌿', id:'boton_tierra'},
+{nombre:'💧', id:'boton_agua'},]
+ratiguya.ataques.push(...ataques_ratiguya)
 
-capipepoEnemigo.ataques.push(
-    {nombre:'🌿', id:'boton_tierra'},
-    {nombre:'🌿', id:'boton_tierra'},
-    {nombre:'🌿', id:'boton_tierra'},
-    {nombre:'💧', id:'boton_agua'},
-    {nombre:'🔥', id:'boton_fuego'},
-)
 
-ratiguya.ataques.push(
-    {nombre:'🔥', id:'boton_fuego'},
-    {nombre:'🔥', id:'boton_fuego'},
-    {nombre:'🔥', id:'boton_fuego'},
-    {nombre:'🌿', id:'boton_tierra'},
-    {nombre:'💧', id:'boton_agua'},
-)
+const ataques_langostelvis=[    
+{nombre:'🔥', id:'boton_fuego'},
+{nombre:'🔥', id:'boton_fuego'},
+{nombre:'🔥', id:'boton_fuego'},
+{nombre:'🌿', id:'boton_tierra'},
+{nombre:'💧', id:'boton_agua'}]
 
-ratiguyaEnemigo.ataques.push(
-    {nombre:'🔥', id:'boton_fuego'},
-    {nombre:'🔥', id:'boton_fuego'},
-    {nombre:'🔥', id:'boton_fuego'},
-    {nombre:'🌿', id:'boton_tierra'},
-    {nombre:'💧', id:'boton_agua'},
-)
 
-langostelvis.ataques.push(
-    {nombre:'🔥', id:'boton_fuego'},
-    {nombre:'🔥', id:'boton_fuego'},
-    {nombre:'🔥', id:'boton_fuego'},
-    {nombre:'🌿', id:'boton_tierra'},
-    {nombre:'💧', id:'boton_agua'},
-)
+const ataques_tucapalma=[
+{nombre:'🔥', id:'boton_fuego'},
+{nombre:'🔥', id:'boton_fuego'},
+{nombre:'🔥', id:'boton_fuego'},
+{nombre:'🌿', id:'boton_tierra'},
+{nombre:'💧', id:'boton_agua'}]
 
-tucapalma.ataques.push(
-    {nombre:'🔥', id:'boton_fuego'},
-    {nombre:'🔥', id:'boton_fuego'},
-    {nombre:'🔥', id:'boton_fuego'},
-    {nombre:'🌿', id:'boton_tierra'},
-    {nombre:'💧', id:'boton_agua'},
-)
-
-pydos.ataques.push(
-    {nombre:'🔥', id:'boton_fuego'},
-    {nombre:'🔥', id:'boton_fuego'},
-    {nombre:'🔥', id:'boton_fuego'},
-    {nombre:'🌿', id:'boton_tierra'},
-    {nombre:'💧', id:'boton_agua'},
-)
+const ataques_pydos=[
+{nombre:'🔥', id:'boton_fuego'},
+{nombre:'🔥', id:'boton_fuego'},
+{nombre:'🔥', id:'boton_fuego'},
+{nombre:'🌿', id:'boton_tierra'},
+{nombre:'💧', id:'boton_agua'}
+]
 
 //se va a generar un arreglo que se llame mokepones y se van a guardar los mokepones existentes 
 let mokepones=[]
@@ -673,10 +663,10 @@ function pintarCanvas(mokepon){
     //se va a modificar la forma de insertar la cara del mokepon al canvas usando una funcion dentro de la clase
     mokepon.insertarcara()
     enviarPosicion(mokepon.x,mokepon.y)
-    //se insertan los enemigos 
-    hipodogeEnemigo.insertarcara()
-    capipepoEnemigo.insertarcara()
-    ratiguyaEnemigo.insertarcara()
+    //se insertan los enemigos
+    
+    // como ya no estan definidos los enemigos, se eliminan tambien las funciones para dibujarlos
+
     
 }
 //se va a definir la funcion para que haga un fetch de un post y enviar las coordenadas.x y x 
@@ -694,6 +684,38 @@ function enviarPosicion(x,y){
         })
     }
     )
+    //con esta parte se imprimen la lista de enemigos, es decir los mokepones con un id diferente al mio 
+    .then(res=>{
+        if(res.ok){
+            res.json().then(({enemigos})=>{
+                //con lo que envie la solicitud post (un objeto)
+                //vamos a hacer un recorrido por todo el objeto buscando el nombre del mokepon elegido por el enemigo
+                //para de esta forma dibujarlo en el canvas junto con las coordenadas.
+                enemigos.forEach((enemigo)=>{
+                    let mokeponEnemigo=enemigo.mokepon.nombre
+                    if(mokeponEnemigo=='hipodoge'){
+                        enemigoseleccionado=new Mokepon('hipodoge', './assets/mokepons_mokepon_hipodoge_attack.webp',5,'./assets/carahipodoge.png',50,200)
+                    }else if(mokeponEnemigo=='capipepo'){
+                        enemigoseleccionado=new Mokepon('capipepo', './assets/mokepons_mokepon_capipepo_attack.webp',5,'./assets/caracapipepo.png',330,100)
+                    }else if(mokeponEnemigo=='ratiguya'){
+                        enemigoseleccionado=new Mokepon('ratiguya', './assets/mokepons_mokepon_ratigueya_attack.webp', 5,'./assets/cararatigueya.png',200,300)
+                    }
+
+                    //se definen las coordendas x y y que se envia cada vez que se mueve el enemigo.    
+                        enemigoseleccionado.x=enemigo.x
+                        enemigoseleccionado.y=enemigo.y
+                        enemigoseleccionado.insertarcara()
+
+                })
+
+
+
+                
+            })
+        }
+    })
+
+
 }
 
 //se agrega la funcion que se indica en html moverDerecha
@@ -703,9 +725,9 @@ function moverDerecha (){
     objetoMokeponSeleccionado().x=objetoMokeponSeleccionado().x+5
     pintarCanvas(objetoMokeponSeleccionado())
     //cada vez que se mueva el mokepn revisar si hay colisión con algun enemigo
-    revisarColision(capipepoEnemigo)
-    revisarColision(ratiguyaEnemigo)
-    revisarColision(hipodogeEnemigo)
+    //se va a cambiar la revisión de colision para solo buscar la colisión con los enemigos. 
+    revisarColision(enemigoseleccionado)
+    
     
 }
 //se agrega la funcion que se indica en html moverArriba
@@ -713,9 +735,7 @@ function moverArriba(){
     objetoMokeponSeleccionado().y=objetoMokeponSeleccionado().y - 5
     pintarCanvas(objetoMokeponSeleccionado())
        //cada vez que se mueva el mokepn revisar si hay colisión con algun enemigo
-    revisarColision(capipepoEnemigo)
-    revisarColision(ratiguyaEnemigo)
-    revisarColision(hipodogeEnemigo)
+    revisarColision(enemigoseleccionado)
     
 }
 //se agrega la funcion que se indica en html moverIzquierda
@@ -723,9 +743,8 @@ function moverIzquierda(){
     objetoMokeponSeleccionado().x=objetoMokeponSeleccionado().x-5
     pintarCanvas(objetoMokeponSeleccionado())
     //cada vez que se mueva el mokepn revisar si hay colisión con algun enemigo
-    revisarColision(capipepoEnemigo)
-    revisarColision(ratiguyaEnemigo)
-    revisarColision(hipodogeEnemigo)
+    revisarColision(enemigoseleccionado)
+    
     
 }
 //se agrega la funcion que se indica en html moverAbajo
@@ -733,9 +752,8 @@ function moverAbajo(){
     objetoMokeponSeleccionado().y=objetoMokeponSeleccionado().y+5
     pintarCanvas(objetoMokeponSeleccionado())
     //cada vez que se mueva el mokepn revisar si hay colisión con algun enemigo
-    revisarColision(capipepoEnemigo)
-    revisarColision(ratiguyaEnemigo)
-    revisarColision(hipodogeEnemigo)
+    revisarColision(enemigoseleccionado)
+    
     
 }
 

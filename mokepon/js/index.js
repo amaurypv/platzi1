@@ -115,7 +115,7 @@ app.post('/mokepon/:idJugador/posicion',(req,res)=>{
     }
     //ahora se va hacer una lista con los enemigos, es decir, todos los jugadoresid que hay en la lista, excepto el id 
     const enemigos=jugadores.filter(jugador=>jugador.id!==idJugador)
-    res.send({enemigos})
+    res.send({enemigos}) //se tiene que enviar en forma de json, porque es la unica forma en que se puede enviar datos
     
 })
 
