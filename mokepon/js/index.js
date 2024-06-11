@@ -35,6 +35,10 @@ class Jugador{
         this.x=x
         this.y=y
     }
+    ataqueEnviado(ataque){
+        this.ataque=ataque
+    }
+    //se genera una funcion en la que se guarde la posicion del jugador
 
 }
 
@@ -119,6 +123,18 @@ app.post('/mokepon/:idJugador/posicion',(req,res)=>{
     
 })
 
+app.post('/mokepon/:idJugador/ataque',(req,res)=>{
+    const idJugador=req.params.idJugador
+    const ataque=req.body.ataque
+
+    let indiceId=jugadores.findIndex(indice=>indice.id===idJugador)
+    if(indiceId>=0){
+        //se agrega el nombre del mokepon al jugador en la posicion indiceId,
+        jugadores[indiceId].ataqueEnviado(ataque)
+    }
+    console.log(ataque)
+    res.end()
+})
 //para ejecutar el servidor es necesario poner el metodo listen
 app.listen(port,()=>{
     console.log(`Escuchando en el puerto ${port}`)
