@@ -92,8 +92,9 @@ let contBotonesAtaqueEnemigo=[]
 let ataqueJugador1
 let ataqueContrincante
 
+//se definen los id que son los que se agregan a 
 let idJugador=null
-
+let idEnemigo=null
 //se crea una nueva variable que va a ser el mokepon elegido por el enemigo. 
 let enemigoseleccionado=null
 
@@ -527,14 +528,6 @@ const ataqueEnemigo=()=>{
 const batalla=()=>{
     let resultado
 
-    const enviarAtaques=()=>{
-        fetch(`http://localhost:8080/mokepon/${idJugador}/ataque`,{
-            method:'post',
-            headers:{'Content-Type': 'application/json'},
-            body:JSON.stringify({ataque:contBotonesAtaque})
-        })
-    }
-
     enviarAtaques()
 
     const juego=()=>{
@@ -703,11 +696,11 @@ function enviarPosicion(x,y){
                 enemigos.forEach((enemigo)=>{
                     let mokeponEnemigo=enemigo.mokepon.nombre
                     if(mokeponEnemigo=='hipodoge'){
-                        enemigoseleccionado=new Mokepon('hipodoge', './assets/mokepons_mokepon_hipodoge_attack.webp',5,'./assets/carahipodoge.png',50,200)
+                        enemigoseleccionado=new Mokepon('hipodoge', './assets/mokepons_mokepon_hipodoge_attack.webp',5,'./assets/carahipodoge.png',50,200,enemigo.id)
                     }else if(mokeponEnemigo=='capipepo'){
-                        enemigoseleccionado=new Mokepon('capipepo', './assets/mokepons_mokepon_capipepo_attack.webp',5,'./assets/caracapipepo.png',330,100)
+                        enemigoseleccionado=new Mokepon('capipepo', './assets/mokepons_mokepon_capipepo_attack.webp',5,'./assets/caracapipepo.png',330,100,enemigo.id)
                     }else if(mokeponEnemigo=='ratiguya'){
-                        enemigoseleccionado=new Mokepon('ratiguya', './assets/mokepons_mokepon_ratigueya_attack.webp', 5,'./assets/cararatigueya.png',200,300)
+                        enemigoseleccionado=new Mokepon('ratiguya', './assets/mokepons_mokepon_ratigueya_attack.webp', 5,'./assets/cararatigueya.png',200,300, enemigo.id)
                     }
 
                     //se definen las coordendas x y y que se envia cada vez que se mueve el enemigo.    
@@ -838,6 +831,7 @@ function revisarColision(enemigo){
     seccionMapaCanvas.style.display='none'
     mascotaEnemigoSeleccionadaAzar=enemigo.nombre 
     mascotaEnemigo.innerHTML= mascotaEnemigoSeleccionadaAzar 
+    idEnemigo=enemigo.id
     //se esconde momentaneamente la seccion del ataque enemigo 
     //seccionAtaqueEnemigo.style.display='none'
     nombreJugador1.style.display='flex'
@@ -849,7 +843,13 @@ function detenerMov(){
 
 }
 
-
+const enviarAtaques=()=>{
+    fetch(`http://localhost:8080/mokepon/${idJugador}/ataque`,{
+        method:'post',
+        headers:{'Content-Type': 'application/json'},
+        body:JSON.stringify({ataque:contBotonesAtaque})
+    })
+}
 //es la funcion que se se debe de poner para que nos indique que se debe de hacer en todo el 
 //documento html 
 
