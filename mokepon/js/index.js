@@ -79,9 +79,6 @@ app.get('/jugador',(req,res)=>{
 })
 
 //crear una pagina en la que se muestre la lista de jugadores
-app.get('/jugadores',(req, res)=>{
-    res.send(jugadores)
-})
 
 // se va a crear una ruta para el servidor para post en el que se tenga el id del jugador como parametro en la url 
 app.post('/mokepon/:idJugador',(req,res)=>{

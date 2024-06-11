@@ -338,7 +338,7 @@ const seleccionDeMascota=()=>{
     //20 pix de ancho y 40 px de alto   
     //lienzo.fillRect(5,15,20,40)
 
-//    se puede poner la imagen que seleccionemos usando una clase llamada Image y depsues seleccionar la imagen con.src
+    //   se puede poner la imagen que seleccionemos usando una clase llamada Image y depsues seleccionar la imagen con.src
     // let imagenCapipepo=new Image()
     // imagenCapipepo.src=ratiguya.imagen
     // lienzo.drawImage( //drawImage es para insertar una imagen en canvas
@@ -440,12 +440,16 @@ const seleccionDeMascota=()=>{
                     contBotonesAtaqueEnemigo.push(ataqueEnemigo())
                     console.log(contBotonesAtaqueEnemigo)
                     boton.disabled=true
+                }
+
+                //se revisa si se cuenta con los 5 ataques y se envian los 5 ataques al servidor.
+                if(contBotonesAtaque.length==5){
+                    enviarAtaques()
                 }   
             }
             )
         }
-        )
-        
+        )   
     }
     
     agregarAtaques()
@@ -528,7 +532,6 @@ const ataqueEnemigo=()=>{
 const batalla=()=>{
     let resultado
 
-    enviarAtaques()
 
     const juego=()=>{
         // if(ataqueJugador=='Fuego 🔥' && ataqueAzarEnemigo=='Tierra 🌿'){
@@ -850,6 +853,9 @@ const enviarAtaques=()=>{
         body:JSON.stringify({ataque:contBotonesAtaque})
     })
 }
+
+
+
 //es la funcion que se se debe de poner para que nos indique que se debe de hacer en todo el 
 //documento html 
 
